@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Dashboard | Outlier AI - FindWorkers Enterprise Console</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/auth-guard.js"></script>
+  <script>
+    // Enforce authentication middleware for Client Dashboard
+    FindWorkersAuth.enforceClientAuth();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'Fragment Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 flex flex-col">
+
+  <!-- Top Client Header Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-8 py-3.5 transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Logo & Portal Indicator -->
+      <div class="flex items-center gap-4">
+        <a href="outlier-preview.html" class="flex items-center gap-2.5 group">
+          <svg viewBox="0 0 32 32" fill="none" class="w-8 h-8 rounded-lg shadow-xs transition-transform group-hover:scale-105 duration-200">
+            <rect width="32" height="32" rx="8" fill="#0F172A" />
+            <path d="M16 6L18.8 13.2L26 16L18.8 18.8L16 26L13.2 18.8L6 16L13.2 13.2L16 6Z" fill="#FFFFFF" />
+          </svg>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5">
+              <span class="text-lg font-bold tracking-tight text-slate-900">FindWorkers</span>
+              <span class="text-[9px] uppercase font-mono px-1.5 py-0.2 rounded bg-slate-100 text-slate-700 font-bold border border-slate-200">
+                AI
+              </span>
+            </div>
+            <span class="text-[9px] text-slate-400 font-mono -mt-0.5">Enterprise Client Console</span>
+          </div>
+        </a>
+
+        <span class="hidden sm:inline-block w-px h-6 bg-slate-200"></span>
+
+        <div class="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="clientHeaderBadge">Cyberdyne Systems • Sarah Connor</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav id="mainDesktopNav" class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
+        <a href="dashboard.html" class="text-emerald-700 font-bold hover:text-emerald-800 transition-colors">Client Dashboard</a>
+        <a href="freelancers.html" class="hover:text-slate-950 transition-colors">Freelancers</a>
+        <a href="seller-profile.html" class="hover:text-slate-950 transition-colors">Top Profile</a>
+        <a href="outlier-preview.html#why-outlier" class="hover:text-slate-950 transition-colors">Why Outlier</a>
+        <a href="outlier-preview.html#testimonials" class="hover:text-slate-950 transition-colors">Stories</a>
+      </nav>
+
+      <!-- Right Header Navigation & Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Escrow Balance Pill -->
+        <div class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-mono">
+          <span class="text-emerald-400 font-bold">🔒 Escrow Locked:</span>
+          <span id="escrowHeaderValue" class="font-bold">$5,900.00</span>
+          <span class="text-[10px] text-slate-400">(0% VAT)</span>
+        </div>
+
+        <!-- Link to Browse Freelancers -->
+        <a
+          href="freelancers.html"
+          class="px-4 py-2 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-100 text-slate-800 text-xs font-bold transition-all shadow-2xs flex items-center gap-1.5"
+        >
+          <span>Browse Talent</span>
+          <span>↗</span>
+        </a>
+
+        <!-- Logout button -->
+        <button
+          type="button"
+          onclick="FindWorkersAuth.terminateSession(); window.location.href='login.html';"
+          class="p-2 rounded-xl text-slate-500 hover:text-rose-700 hover:bg-rose-50 transition-colors cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
+          title="Sign Out of Client Portal"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          <span class="hidden sm:inline">Sign Out</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Global Action Notification Toast -->
+  <div id="actionToast" class="hidden bg-emerald-600 text-white text-xs font-semibold px-4 py-2.5 text-center shadow-sm flex items-center justify-center gap-2 transition-all">
+    <span id="actionToastText">✓ Action completed successfully!</span>
+  </div>
+
+  <!-- Main Dashboard Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+    
+    <!-- Top Header Greetings & Quick CTA -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-slate-600 mb-2">
+          <span>🏢 Active Organization: Cyberdyne AI Operations</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          Client Management Dashboard
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">
+          Oversee your active contracts, inspect milestone deliverables, release escrow, and negotiate budgets with verified talent.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a
+          href="freelancers.html"
+          class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm hover:shadow transition-all flex items-center gap-2"
+        >
+          <span>+ Book New Freelancer</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Dashboard Metric Overview Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Card 1: Escrow Secured -->
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+        <div class="flex items-center justify-between text-xs text-slate-500">
+          <span class="font-semibold">Secured in Escrow</span>
+          <span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 text-sm">🔒</span>
+        </div>
+        <div class="mt-3">
+          <div id="metricEscrow" class="text-2xl sm:text-3xl font-black text-slate-900">
+            $5,900.00
+          </div>
+          <div class="text-[11px] text-emerald-700 font-medium mt-1 flex items-center gap-1">
+            <span>✓ 100% Protected</span>
+            <span>•</span>
+            <span>0% VAT Applied</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Active Contracts -->
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+        <div class="flex items-center justify-between text-xs text-slate-500">
+          <span class="font-semibold">Active Contracts</span>
+          <span class="p-1.5 rounded-lg bg-indigo-50 text-indigo-600 text-sm">📄</span>
+        </div>
+        <div class="mt-3">
+          <div class="text-2xl sm:text-3xl font-black text-slate-900">
+            3 Active
+          </div>
+          <div class="text-[11px] text-slate-500 font-medium mt-1">
+            Across UI/UX, RLHF &amp; Python APIs
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Actionable Deliverables -->
+      <div class="p-5 rounded-2xl bg-white border border-amber-200 bg-amber-50/30 shadow-2xs flex flex-col justify-between">
+        <div class="flex items-center justify-between text-xs text-amber-800">
+          <span class="font-bold">Awaiting Your Review</span>
+          <span class="p-1.5 rounded-lg bg-amber-100 text-amber-700 text-sm">⚡</span>
+        </div>
+        <div class="mt-3">
+          <div id="metricReview" class="text-2xl sm:text-3xl font-black text-amber-900">
+            1 Deliverable
+          </div>
+          <div class="text-[11px] text-amber-700 font-semibold mt-1">
+            Ready to review and release funds
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Lifetime Spend -->
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+        <div class="flex items-center justify-between text-xs text-slate-500">
+          <span class="font-semibold">Completed Milestones</span>
+          <span class="p-1.5 rounded-lg bg-slate-100 text-slate-700 text-sm">✓</span>
+        </div>
+        <div class="mt-3">
+          <div id="metricCompleted" class="text-2xl sm:text-3xl font-black text-slate-900">
+            $18,400.00
+          </div>
+          <div class="text-[11px] text-slate-500 font-medium mt-1">
+            7 Milestones verified &amp; released
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs Bar -->
+    <div class="flex items-center gap-2 border-b border-slate-200/80 pb-2 overflow-x-auto text-xs sm:text-sm font-semibold">
+      <button
+        type="button"
+        id="tabBtn-contracts"
+        onclick="switchTab('contracts')"
+        class="px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-2 bg-slate-900 text-white shadow-xs"
+      >
+        <span>Active Contracts &amp; Escrow</span>
+        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono bg-slate-700 text-emerald-300">
+          3
+        </span>
+      </button>
+
+      <button
+        type="button"
+        id="tabBtn-proposals"
+        onclick="switchTab('proposals')"
+        class="px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+      >
+        <span>Negotiable Budget Proposals</span>
+        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono bg-slate-200 text-slate-700">
+          2
+        </span>
+      </button>
+
+      <button
+        type="button"
+        id="tabBtn-freelancers"
+        onclick="switchTab('freelancers')"
+        class="px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+      >
+        <span>Hired Talent Directory</span>
+      </button>
+
+      <button
+        type="button"
+        id="tabBtn-escrow"
+        onclick="switchTab('escrow')"
+        class="px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+      >
+        <span>Escrow Ledger &amp; Invoices</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: Active Contracts & Milestone Management -->
+    <section id="tabContent-contracts" class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Current Milestone Contracts</h2>
+          <p class="text-xs text-slate-500">Track progress, review submitted work deliverables, and release protected escrow funds.</p>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Contract 1: Thomas Powell -->
+        <div class="rounded-2xl bg-white border border-slate-200/90 shadow-xs p-6 space-y-6 hover:border-slate-300 transition-colors">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3.5">
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80"
+                  alt="Thomas Powell"
+                  class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
+                />
+                <span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white"></span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="font-bold text-slate-900 text-base">Thomas Powell</h3>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                    Level 2
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-amber-300">
+                    ★ Pro Seller
+                  </span>
+                </div>
+                <p class="text-xs text-slate-500 font-medium">Senior UI/UX &amp; RLHF Evaluator</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4 text-xs font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="text-slate-400 block text-[10px]">TOTAL FIXED BUDGET</span>
+                <span class="font-bold text-slate-900 text-sm">$4,500.00</span>
+                <span class="text-[10px] text-slate-400 ml-1">(0% VAT)</span>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-emerald-900">
+                <span class="text-emerald-700 block text-[10px]">LOCKED IN ESCROW</span>
+                <span id="thomasEscrowPill" class="font-bold text-sm">$1,500.00</span>
+              </div>
+
+              <button
+                type="button"
+                onclick="openChat('Thomas Powell')"
+                class="px-3.5 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold transition-colors cursor-pointer flex items-center gap-1.5"
+              >
+                <span>💬</span>
+                <span>Chat</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="font-bold text-slate-800 text-sm">
+                Project: <span class="text-slate-900">AI Platform Design System &amp; Milestone Escrow Workflow</span>
+              </div>
+              <span id="thomasProgressText" class="text-xs font-mono text-emerald-700 font-bold">66% Completed</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+              <div
+                id="thomasProgressBar"
+                class="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                style="width: 66%"
+              ></div>
+            </div>
+          </div>
+
+          <div class="space-y-3 pt-2">
+            <h4 class="text-xs uppercase tracking-wider font-mono font-bold text-slate-400">
+              Contract Milestones (3)
+            </h4>
+
+            <div class="space-y-2.5">
+              <!-- M1 -->
+              <div class="p-4 rounded-xl border bg-slate-50/60 border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 bg-slate-200 text-slate-700">1</span>
+                    <span class="text-xs sm:text-sm font-bold text-slate-900">Milestone 1: Architectural Wireframes &amp; Information Hierarchy</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-[11px] text-slate-500 pl-7">
+                    <span>Due: Sep 24, 2026</span>
+                    <span>•</span>
+                    <span class="font-mono font-semibold text-slate-700">$1,500.00</span>
+                  </div>
+                </div>
+                <div class="pl-7 md:pl-0">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                    <span>✓</span>
+                    <span>Approved &amp; Released</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- M2 (Actionable Review) -->
+              <div id="m2Row" class="p-4 rounded-xl border bg-amber-50/60 border-amber-200 ring-1 ring-amber-300 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 bg-amber-200 text-amber-900">2</span>
+                    <span class="text-xs sm:text-sm font-bold text-slate-900">Milestone 2: High-Fidelity Figma Components &amp; Interactive Prototypes</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-[11px] text-slate-500 pl-7">
+                    <span>Due: Oct 04, 2026</span>
+                    <span>•</span>
+                    <span class="font-mono font-semibold text-slate-700">$1,500.00</span>
+                  </div>
+                </div>
+                <div id="m2ActionArea" class="flex items-center gap-2 pl-7 md:pl-0">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 animate-pulse">
+                    <span>⚡ Deliverable Ready</span>
+                  </span>
+                  <button
+                    type="button"
+                    onclick="openMilestoneReviewModal()"
+                    class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xs hover:shadow transition-all cursor-pointer flex items-center gap-1.5"
+                  >
+                    <span>Review &amp; Release Funds</span>
+                    <span>→</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- M3 -->
+              <div class="p-4 rounded-xl border bg-white border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 bg-slate-200 text-slate-700">3</span>
+                    <span class="text-xs sm:text-sm font-bold text-slate-900">Milestone 3: Final Asset Export, Design Token Handoff &amp; QA Review</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-[11px] text-slate-500 pl-7">
+                    <span>Due: Oct 15, 2026</span>
+                    <span>•</span>
+                    <span class="font-mono font-semibold text-slate-700">$1,500.00</span>
+                  </div>
+                </div>
+                <div class="pl-7 md:pl-0">
+                  <span class="text-xs text-slate-400 font-mono">Upcoming Milestone</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contract 2: Elena Rostova -->
+        <div class="rounded-2xl bg-white border border-slate-200/90 shadow-xs p-6 space-y-6 hover:border-slate-300 transition-colors">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3.5">
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80"
+                  alt="Elena Rostova"
+                  class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
+                />
+                <span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white"></span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="font-bold text-slate-900 text-base">Elena Rostova</h3>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                    Level 2
+                  </span>
+                </div>
+                <p class="text-xs text-slate-500 font-medium">Lead AI &amp; RLHF Alignment Specialist</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4 text-xs font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="text-slate-400 block text-[10px]">TOTAL FIXED BUDGET</span>
+                <span class="font-bold text-slate-900 text-sm">$3,200.00</span>
+                <span class="text-[10px] text-slate-400 ml-1">(0% VAT)</span>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-emerald-900">
+                <span class="text-emerald-700 block text-[10px]">LOCKED IN ESCROW</span>
+                <span class="font-bold text-sm">$1,600.00</span>
+              </div>
+
+              <button
+                type="button"
+                onclick="openChat('Elena Rostova')"
+                class="px-3.5 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold transition-colors cursor-pointer flex items-center gap-1.5"
+              >
+                <span>💬</span>
+                <span>Chat</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="font-bold text-slate-800 text-sm">
+                Project: <span class="text-slate-900">Safety Benchmark Dataset Curation &amp; Red-Teaming Protocols</span>
+              </div>
+              <span class="text-xs font-mono text-emerald-700 font-bold">50% Completed</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: Proposals & Negotiable Budget Requests -->
+    <section id="tabContent-proposals" class="hidden space-y-6">
+      <div>
+        <h2 class="text-lg font-bold text-slate-900">Incoming Proposals &amp; Budget Negotiations</h2>
+        <p class="text-xs text-slate-500">
+          Specialists who have submitted fixed-price proposals matching your specified negotiable budgets.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Prop 1 -->
+        <div id="propCard-1" class="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4 hover:border-slate-300 transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
+                  alt="David Chen"
+                  class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100"
+                />
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-bold text-slate-900 text-sm">David Chen</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-slate-100 text-slate-700">Level 1</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500">STEM &amp; Mathematical Reasoning Specialist</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">Today at 9:15 AM</span>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-800 text-xs sm:text-sm">Formal Proof Validation &amp; Symbolic Computation Benchmarking</h4>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <span class="text-[10px] text-slate-500 block uppercase font-mono">Proposed Quote</span>
+                <span class="font-bold line-through text-slate-400">$2,200</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-emerald-800 block uppercase font-mono font-bold">Your Negotiable Budget</span>
+                <span class="font-black text-emerald-700 text-base">$1,900</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="propActions-1" class="pt-2 flex items-center gap-2.5">
+            <button
+              type="button"
+              onclick="acceptProposal('propActions-1', 1900)"
+              class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+            >
+              Accept &amp; Fund Escrow ($1,900)
+            </button>
+            <button
+              type="button"
+              onclick="openChat('David Chen')"
+              class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-colors cursor-pointer"
+            >
+              Discuss
+            </button>
+          </div>
+        </div>
+
+        <!-- Prop 2 -->
+        <div id="propCard-2" class="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4 hover:border-slate-300 transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80"
+                  alt="Sophia Loren"
+                  class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100"
+                />
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-bold text-slate-900 text-sm">Sophia Loren</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-slate-900 text-amber-300">★ Pro</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500">Technical Content &amp; AI Documentation Lead</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">Yesterday</span>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-800 text-xs sm:text-sm">Developer Onboarding Guide &amp; API Sandbox Walkthrough</h4>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <span class="text-[10px] text-slate-500 block uppercase font-mono">Proposed Quote</span>
+                <span class="font-bold line-through text-slate-400">$1,400</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-emerald-800 block uppercase font-mono font-bold">Your Negotiable Budget</span>
+                <span class="font-black text-emerald-700 text-base">$1,250</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="propActions-2" class="pt-2 flex items-center gap-2.5">
+            <button
+              type="button"
+              onclick="acceptProposal('propActions-2', 1250)"
+              class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+            >
+              Accept &amp; Fund Escrow ($1,250)
+            </button>
+            <button
+              type="button"
+              onclick="openChat('Sophia Loren')"
+              class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-colors cursor-pointer"
+            >
+              Discuss
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Hired Talent Directory -->
+    <section id="tabContent-freelancers" class="hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Your Hired Team &amp; Verified Specialists</h2>
+          <p class="text-xs text-slate-500">Quickly re-engage top talent who have delivered approved work for your organization.</p>
+        </div>
+        <a href="seller-profile.html" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:underline">
+          + Explore More Experts
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Freelancer 1 -->
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3.5">
+              <img
+                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80"
+                alt="Thomas Powell"
+                class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
+              />
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Thomas Powell</h4>
+                <p class="text-[11px] text-slate-500">UI/UX &amp; RLHF Specialist</p>
+                <div class="flex items-center gap-1.5 text-xs text-amber-500 font-bold mt-0.5">
+                  <span>★ 5.0</span>
+                  <span class="text-slate-400 font-normal">(14 contracts)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-amber-300">Pro Seller</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">Level 2 Seller</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Upwork Top Rated</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 flex items-center gap-2">
+            <button
+              type="button"
+              onclick="openChat('Thomas Powell')"
+              class="flex-1 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+            >
+              Message
+            </button>
+            <a
+              href="seller-profile.html"
+              class="flex-1 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors text-center"
+            >
+              Book Again
+            </a>
+          </div>
+        </div>
+
+        <!-- Freelancer 2 -->
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3.5">
+              <img
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80"
+                alt="Elena Rostova"
+                class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
+              />
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Elena Rostova</h4>
+                <p class="text-[11px] text-slate-500">Lead AI Evaluator &amp; RLHF Trainer</p>
+                <div class="flex items-center gap-1.5 text-xs text-amber-500 font-bold mt-0.5">
+                  <span>★ 4.9</span>
+                  <span class="text-slate-400 font-normal">(22 contracts)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">Level 2 Seller</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Fiverr Pro</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 flex items-center gap-2">
+            <button
+              type="button"
+              onclick="openChat('Elena Rostova')"
+              class="flex-1 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+            >
+              Message
+            </button>
+            <a
+              href="seller-profile.html"
+              class="flex-1 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors text-center"
+            >
+              Book Again
+            </a>
+          </div>
+        </div>
+
+        <!-- Freelancer 3 -->
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3.5">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+                alt="Marcus Vance"
+                class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
+              />
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Marcus Vance</h4>
+                <p class="text-[11px] text-slate-500">Full-Stack Next.js &amp; Python Engineer</p>
+                <div class="flex items-center gap-1.5 text-xs text-amber-500 font-bold mt-0.5">
+                  <span>★ 4.9</span>
+                  <span class="text-slate-400 font-normal">(31 contracts)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">Level 1 Seller</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-amber-300">★ Pro</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 flex items-center gap-2">
+            <button
+              type="button"
+              onclick="openChat('Marcus Vance')"
+              class="flex-1 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+            >
+              Message
+            </button>
+            <a
+              href="seller-profile.html"
+              class="flex-1 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors text-center"
+            >
+              Book Again
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Escrow Ledger & Invoices -->
+    <section id="tabContent-escrow" class="hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Escrow Transaction Ledger</h2>
+          <p class="text-xs text-slate-500">All milestone deposits are held in 100% escrow protection until you release them. Zero VAT is charged on deposits.</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-2xs">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-mono uppercase text-[10px]">
+            <tr>
+              <th class="px-4 py-3.5">Escrow ID</th>
+              <th class="px-4 py-3.5">Talent</th>
+              <th class="px-4 py-3.5">Milestone Description</th>
+              <th class="px-4 py-3.5">Amount</th>
+              <th class="px-4 py-3.5">VAT</th>
+              <th class="px-4 py-3.5">Escrow Status</th>
+              <th class="px-4 py-3.5 text-right">Receipt</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3.5 font-mono font-semibold text-slate-900">ESC-9821</td>
+              <td class="px-4 py-3.5 font-medium text-slate-900">Thomas Powell</td>
+              <td class="px-4 py-3.5">Milestone 1: Architectural Wireframes</td>
+              <td class="px-4 py-3.5 font-mono font-bold text-slate-900">$1,500.00</td>
+              <td class="px-4 py-3.5 font-mono text-emerald-700 font-bold">$0.00 (No VAT)</td>
+              <td class="px-4 py-3.5">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                  ✓ Released to Talent
+                </span>
+              </td>
+              <td class="px-4 py-3.5 text-right font-mono">
+                <button type="button" onclick="alert('Downloading official PDF Escrow receipt...')" class="text-emerald-700 hover:underline">
+                  PDF ↓
+                </button>
+              </td>
+            </tr>
+
+            <tr id="ledgerRow-2" class="hover:bg-slate-50/50 bg-amber-50/30">
+              <td class="px-4 py-3.5 font-mono font-semibold text-slate-900">ESC-9822</td>
+              <td class="px-4 py-3.5 font-medium text-slate-900">Thomas Powell</td>
+              <td class="px-4 py-3.5 font-bold text-amber-900">Milestone 2: High-Fidelity Figma</td>
+              <td class="px-4 py-3.5 font-mono font-bold text-slate-900">$1,500.00</td>
+              <td class="px-4 py-3.5 font-mono text-emerald-700 font-bold">$0.00 (No VAT)</td>
+              <td id="ledgerStatus-2" class="px-4 py-3.5">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                  🔒 Locked in Escrow (In Review)
+                </span>
+              </td>
+              <td class="px-4 py-3.5 text-right font-mono">
+                <button type="button" onclick="alert('Downloading official PDF Escrow receipt...')" class="text-emerald-700 hover:underline">
+                  PDF ↓
+                </button>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3.5 font-mono font-semibold text-slate-900">ESC-8730</td>
+              <td class="px-4 py-3.5 font-medium text-slate-900">Elena Rostova</td>
+              <td class="px-4 py-3.5">Milestone 1: 5,000 Prompts Dataset</td>
+              <td class="px-4 py-3.5 font-mono font-bold text-slate-900">$1,600.00</td>
+              <td class="px-4 py-3.5 font-mono text-emerald-700 font-bold">$0.00 (No VAT)</td>
+              <td class="px-4 py-3.5">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                  🔒 Secured in Escrow
+                </span>
+              </td>
+              <td class="px-4 py-3.5 text-right font-mono">
+                <button type="button" onclick="alert('Downloading official PDF Escrow receipt...')" class="text-emerald-700 hover:underline">
+                  PDF ↓
+                </button>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/50">
+              <td class="px-4 py-3.5 font-mono font-semibold text-slate-900">ESC-7641</td>
+              <td class="px-4 py-3.5 font-medium text-slate-900">Marcus Vance</td>
+              <td class="px-4 py-3.5">Fixed-Price Full Escrow: Payment Gateway</td>
+              <td class="px-4 py-3.5 font-mono font-bold text-slate-900">$2,800.00</td>
+              <td class="px-4 py-3.5 font-mono text-emerald-700 font-bold">$0.00 (No VAT)</td>
+              <td class="px-4 py-3.5">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                  🔒 Secured in Escrow
+                </span>
+              </td>
+              <td class="px-4 py-3.5 text-right font-mono">
+                <button type="button" onclick="alert('Downloading official PDF Escrow receipt...')" class="text-emerald-700 hover:underline">
+                  PDF ↓
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: Review Deliverable & Release Escrow Funds -->
+  <div id="reviewMilestoneModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="relative w-full max-w-lg rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl space-y-5 animate-in fade-in zoom-in-95">
+      <button
+        type="button"
+        onclick="closeMilestoneReviewModal()"
+        class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-sm font-bold p-1 cursor-pointer"
+      >
+        ✕
+      </button>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl font-bold">
+          ⚡
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">Review Milestone Deliverable</h3>
+          <p class="text-xs text-slate-500">Submitted by Thomas Powell (Pro Seller)</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+        <div class="flex justify-between items-center text-slate-600">
+          <span class="font-semibold text-slate-800">Milestone 2: High-Fidelity Figma Components</span>
+          <span class="font-mono font-bold text-emerald-700 text-sm">$1,500.00</span>
+        </div>
+        <p class="text-slate-500 leading-relaxed text-[11px] pt-1 border-t border-slate-200/80">
+          &ldquo;All 48 component states, interactive booking modals, and responsive breakpoints are finalized and ready for production signoff.&rdquo;
+        </p>
+        <div class="pt-2">
+          <a
+            href="seller-profile.html"
+            target="_blank"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold text-[11px] hover:bg-indigo-100 transition-colors"
+          >
+            <span>Inspect Deliverable Files &amp; Live Prototype</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Escrow Release Notice -->
+      <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 space-y-1">
+        <div class="font-bold flex items-center gap-1.5">
+          <span>🔒 Escrow Protection Guarantee</span>
+        </div>
+        <p class="text-[11px] text-emerald-800 leading-snug">
+          Releasing this milestone will instantly disburse <strong>$1,500.00</strong> from escrow to Thomas Powell. Zero VAT is deducted.
+        </p>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button
+          type="button"
+          onclick="requestRevision()"
+          class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-50 cursor-pointer"
+        >
+          Request Revision
+        </button>
+        <button
+          type="button"
+          onclick="confirmReleaseEscrow()"
+          class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs hover:shadow transition-all cursor-pointer flex items-center gap-1.5"
+        >
+          <span>Approve &amp; Release Escrow Funds</span>
+          <span>✓</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLYOUT: Chat with Specialist -->
+  <div id="chatFlyout" class="hidden fixed bottom-6 right-6 z-50 w-full max-w-sm rounded-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden flex-col animate-in slide-in-from-bottom-5">
+    <div class="bg-slate-900 text-white p-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <span id="chatFreelancerTitle" class="font-bold text-xs">Chat with Specialist</span>
+      </div>
+      <button
+        type="button"
+        onclick="closeChat()"
+        class="text-slate-400 hover:text-white text-sm font-bold"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div id="chatMessages" class="p-4 h-64 overflow-y-auto space-y-3 bg-slate-50 text-xs">
+      <div class="flex flex-col items-start">
+        <div class="p-2.5 rounded-xl max-w-[85%] bg-white border border-slate-200 text-slate-800">
+          <p>Hi Sarah! I have just uploaded the Milestone #2 Figma prototype and test suites for review.</p>
+        </div>
+        <span class="text-[10px] text-slate-400 mt-0.5">10:45 AM</span>
+      </div>
+
+      <div class="flex flex-col items-end">
+        <div class="p-2.5 rounded-xl max-w-[85%] bg-slate-900 text-white">
+          <p>Thanks! Reviewing the deliverable now before releasing escrow.</p>
+        </div>
+        <span class="text-[10px] text-slate-400 mt-0.5">10:52 AM</span>
+      </div>
+    </div>
+
+    <form onsubmit="handleSendChatMessage(event)" class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2">
+      <input
+        id="chatInput"
+        type="text"
+        placeholder="Type message to freelancer..."
+        class="flex-1 rounded-xl border border-slate-200 px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+      />
+      <button
+        type="submit"
+        class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+
+  <script>
+    // Tab switching
+    function switchTab(tabId) {
+      const tabs = ['contracts', 'proposals', 'freelancers', 'escrow'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tabBtn-' + t);
+        const content = document.getElementById('tabContent-' + t);
+        if (t === tabId) {
+          btn.className = 'px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-2 bg-slate-900 text-white shadow-xs';
+          content.classList.remove('hidden');
+        } else {
+          btn.className = 'px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100';
+          content.classList.add('hidden');
+        }
+      });
+    }
+
+    // Milestone Review Modal
+    function openMilestoneReviewModal() {
+      document.getElementById('reviewMilestoneModal').classList.remove('hidden');
+    }
+
+    function closeMilestoneReviewModal() {
+      document.getElementById('reviewMilestoneModal').classList.add('hidden');
+    }
+
+    function requestRevision() {
+      alert('Revision requested! A notification has been dispatched to Thomas Powell.');
+      closeMilestoneReviewModal();
+    }
+
+    function confirmReleaseEscrow() {
+      closeMilestoneReviewModal();
+
+      // Update UI state
+      document.getElementById('m2Row').className = 'p-4 rounded-xl border bg-slate-50/60 border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3';
+      document.getElementById('m2ActionArea').innerHTML = `
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+          <span>✓</span>
+          <span>Approved &amp; Released</span>
+        </span>
+      `;
+
+      // Update Progress
+      document.getElementById('thomasProgressText').innerText = '100% Completed';
+      document.getElementById('thomasProgressBar').style.width = '100%';
+      document.getElementById('thomasEscrowPill').innerText = '$0.00';
+
+      // Update Top Metrics
+      document.getElementById('metricEscrow').innerText = '$4,400.00';
+      document.getElementById('escrowHeaderValue').innerText = '$4,400.00';
+      document.getElementById('metricReview').innerText = '0 Deliverables';
+      document.getElementById('metricCompleted').innerText = '$19,900.00';
+
+      // Update Ledger
+      const ledgerStatus = document.getElementById('ledgerStatus-2');
+      if (ledgerStatus) {
+        ledgerStatus.innerHTML = `
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+            ✓ Released to Talent
+          </span>
+        `;
+        document.getElementById('ledgerRow-2').className = 'hover:bg-slate-50/50';
+      }
+
+      // Show Toast
+      showToast('✓ Milestone #2 Approved! $1,500.00 released from escrow to Thomas Powell. Zero VAT applied.');
+    }
+
+    // Accept Proposal
+    function acceptProposal(actionsId, budget) {
+      const container = document.getElementById(actionsId);
+      container.innerHTML = `
+        <div class="w-full py-2 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold text-center">
+          ✓ Accepted &amp; Escrow Activated ($${budget.toLocaleString()})
+        </div>
+      `;
+      showToast(`✓ Proposal accepted with negotiated budget of $${budget.toLocaleString()}. Escrow locked.`);
+    }
+
+    // Toast
+    function showToast(msg) {
+      const toast = document.getElementById('actionToast');
+      const text = document.getElementById('actionToastText');
+      text.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    // Chat
+    function openChat(name) {
+      document.getElementById('chatFreelancerTitle').innerText = 'Chat with ' + name;
+      document.getElementById('chatFlyout').classList.remove('hidden');
+      document.getElementById('chatFlyout').classList.add('flex');
+    }
+
+    function closeChat() {
+      document.getElementById('chatFlyout').classList.add('hidden');
+      document.getElementById('chatFlyout').classList.remove('flex');
+    }
+
+    function handleSendChatMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chatMessages');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex flex-col items-end';
+      msgDiv.innerHTML = `
+        <div class="p-2.5 rounded-xl max-w-[85%] bg-slate-900 text-white">
+          <p>${text}</p>
+        </div>
+        <span class="text-[10px] text-slate-400 mt-0.5">Just now</span>
+      `;
+      container.appendChild(msgDiv);
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // Hydrate logged-in client user info
+    (function initAuthUser() {
+      const authUser = FindWorkersAuth.getCurrentUser();
+      if (authUser) {
+        const badge = document.getElementById('clientHeaderBadge');
+        if (badge && authUser.name) {
+          badge.innerText = `${authUser.company || 'Enterprise'} • ${authUser.name}`;
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

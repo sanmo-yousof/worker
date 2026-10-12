@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Log In | Outlier AI - Enterprise Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/auth-guard.js"></script>
+  <script>
+    // Redirect if already authenticated
+    FindWorkersAuth.redirectIfAlreadyLoggedIn();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'Fragment Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Top Header Bar -->
+  <header class="bg-white border-b border-slate-200/80 px-4 sm:px-8 py-3.5 flex items-center justify-between z-10 shrink-0">
+    <a href="outlier-preview.html" class="flex items-center gap-2.5 group">
+      <svg viewBox="0 0 32 32" fill="none" class="w-8 h-8 rounded-lg shadow-xs transition-transform group-hover:scale-105 duration-200">
+        <rect width="32" height="32" rx="8" fill="#0F172A" />
+        <path d="M16 6L18.8 13.2L26 16L18.8 18.8L16 26L13.2 18.8L6 16L13.2 13.2L16 6Z" fill="#FFFFFF" />
+      </svg>
+      <div class="flex flex-col">
+        <div class="flex items-center gap-1.5">
+          <span class="text-lg font-bold tracking-tight text-slate-900">Outlier</span>
+          <span class="text-[9px] uppercase font-mono px-1.5 py-0.2 rounded bg-slate-100 text-slate-700 font-bold border border-slate-200">
+            AI
+          </span>
+        </div>
+        <span class="text-[9px] text-slate-400 font-mono -mt-0.5">by Scale AI</span>
+      </div>
+    </a>
+
+    <div class="flex items-center gap-3 text-xs">
+      <span class="hidden sm:inline text-slate-500">Need a client account?</span>
+      <a href="signup.html" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-all shadow-xs hover:shadow flex items-center gap-1.5">
+        <span>Sign Up to Hire</span>
+        <span>→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Split-Screen Container -->
+  <main class="flex-1 flex flex-col lg:flex-row">
+    <!-- Left Side: Brand Showcase & Social Proof for Clients -->
+    <section class="hidden lg:flex lg:w-5/12 xl:w-1/2 bg-[#0B0F19] text-white p-12 xl:p-16 flex-col justify-between relative overflow-hidden">
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Top Section -->
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/80 text-[11px] font-mono text-emerald-400 font-semibold mb-8">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>CLIENT &amp; ENTERPRISE PORTAL</span>
+        </div>
+
+        <h1 class="text-3xl xl:text-4xl font-black text-white tracking-tight leading-tight max-w-lg">
+          Hire the world&apos;s elite AI engineers, researchers &amp; specialists.
+        </h1>
+        <p class="text-sm text-slate-400 mt-4 leading-relaxed max-w-md">
+          Manage milestones, fund secure escrow contracts, and collaborate with pre-vetted top 1% talent across 85+ countries.
+        </p>
+
+        <!-- Key Value Cards -->
+        <div class="grid grid-cols-2 gap-4 mt-8 max-w-md">
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-xs">
+            <div class="text-2xl font-black text-indigo-400">100% Escrow</div>
+            <div class="text-xs text-slate-400 mt-0.5 font-medium">Milestone Protection</div>
+            <div class="text-[10px] text-slate-500 mt-2 flex items-center gap-1 font-mono">
+              <span>✓</span> Zero Payment Disputes
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-xs">
+            <div class="text-2xl font-black text-emerald-400">&lt; 24h</div>
+            <div class="text-xs text-slate-400 mt-0.5 font-medium">Instant Matching</div>
+            <div class="text-[10px] text-slate-500 mt-2 flex items-center gap-1 font-mono">
+              <span>✓</span> Pre-Vetted Top 1%
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Testimonial -->
+      <div class="relative z-10 mt-12 p-6 rounded-2xl bg-gradient-to-br from-slate-900/90 to-slate-800/70 border border-slate-700/80 backdrop-blur-sm max-w-lg shadow-xl">
+        <div class="flex items-center gap-1 text-amber-400 text-xs mb-3">
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span class="text-slate-400 text-[11px] font-mono ml-1.5 font-bold">5.0 Enterprise Client</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-200 italic leading-relaxed">
+          &ldquo;FindWorkers made scaling our technical and model evaluation team effortless. Milestone escrow ensures every deliverable is verified before funds are released.&rdquo;
+        </p>
+        <div class="flex items-center gap-3 mt-4 pt-4 border-t border-slate-800">
+          <div class="w-9 h-9 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs shrink-0 ring-2 ring-indigo-500/30">
+            SC
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white">Sarah Connor</div>
+            <div class="text-[11px] text-slate-400">VP of Engineering &amp; AI Operations, Cyberdyne Systems</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Badges -->
+      <div class="relative z-10 pt-8 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+        <div class="flex items-center gap-4">
+          <span>🔒 SOC-2 TYPE II</span>
+          <span>•</span>
+          <span>256-BIT ENCRYPTION</span>
+          <span>•</span>
+          <span>ISO 27001</span>
+        </div>
+        <a href="seller-profile.html" class="hover:text-slate-300 transition-colors">← Back</a>
+      </div>
+    </section>
+
+    <!-- Right Side: Interactive Client Login Form -->
+    <section class="flex-1 flex items-center justify-center p-6 sm:p-12 lg:p-16">
+      <div class="w-full max-w-md space-y-6">
+        <!-- Title -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 mb-3">
+            <span>🏢</span>
+            <span>Client &amp; Enterprise Access</span>
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Log In to Client Portal
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            Sign in to manage verified talent, milestone approvals, and secure escrow contracts.
+          </p>
+        </div>
+
+        <!-- Middleware Protected Route Alert Banner -->
+        <div id="authRequiredBanner" class="hidden p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2.5 shadow-2xs">
+          <span class="text-base">🔒</span>
+          <div>
+            <span class="font-bold">Authentication Required:</span> Please log in with your client account to access the protected dashboard console.
+          </div>
+        </div>
+
+        <!-- Quick Demo Autofill Helper -->
+        <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200/80 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">⚡</span>
+            <span class="text-emerald-950 font-medium text-[11px]">Testing demo access?</span>
+          </div>
+          <button
+            type="button"
+            onclick="fillDemoAccount()"
+            class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] transition-colors cursor-pointer"
+          >
+            Autofill Client Account
+          </button>
+        </div>
+
+        <!-- Social Logins -->
+        <div class="grid grid-cols-2 gap-2.5">
+          <button
+            type="button"
+            onclick="triggerSocialLogin('Google')"
+            class="py-2.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-xs font-semibold text-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+          >
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+            </svg>
+            <span>Google</span>
+          </button>
+
+          <button
+            type="button"
+            onclick="triggerSocialLogin('GitHub')"
+            class="py-2.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-xs font-semibold text-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+          >
+            <svg class="w-4 h-4 shrink-0 fill-slate-900" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            <span>GitHub</span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="relative my-4">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-slate-200"></div>
+          </div>
+          <div class="relative flex justify-center text-xs uppercase">
+            <span class="bg-slate-50 px-3 text-slate-400 font-mono text-[10px] font-semibold">
+              Or sign in with work email
+            </span>
+          </div>
+        </div>
+
+        <!-- Form Element -->
+        <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+          <!-- Work Email -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Work / Company Email</label>
+            <div class="relative">
+              <span class="absolute left-3.5 top-3 text-slate-400 text-xs">✉</span>
+              <input
+                id="emailInput"
+                type="email"
+                required
+                placeholder="sarah@company.com"
+                class="w-full rounded-xl border border-slate-200 pl-9 pr-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-xs font-semibold text-slate-700">Password</label>
+              <button
+                type="button"
+                onclick="openForgotPasswordModal()"
+                class="text-[11px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline cursor-pointer"
+              >
+                Forgot password?
+              </button>
+            </div>
+            <div class="relative">
+              <span class="absolute left-3.5 top-3 text-slate-400 text-xs">🔒</span>
+              <input
+                id="passwordInput"
+                type="password"
+                required
+                placeholder="••••••••••••"
+                class="w-full rounded-xl border border-slate-200 pl-9 pr-10 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+              />
+              <button
+                type="button"
+                onclick="togglePasswordVisibility()"
+                class="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-slate-700 transition-colors p-0.5 cursor-pointer"
+                title="Toggle password visibility"
+              >
+                <span id="eyeIcon">👁️‍🗨️</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember Me Checkbox -->
+          <div class="flex items-center justify-between pt-1">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                id="rememberMeCheckbox"
+                type="checkbox"
+                checked
+                class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300"
+              />
+              <span class="text-xs text-slate-600">Remember this device for 30 days</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            id="submitBtn"
+            type="submit"
+            class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+          >
+            <span id="btnText">Sign In to Client Console →</span>
+          </button>
+        </form>
+
+        <!-- Success Message State (Hidden initially) -->
+        <div id="successCard" class="hidden p-6 rounded-2xl bg-white border border-emerald-200 text-center space-y-4 shadow-sm">
+          <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 text-2xl font-bold flex items-center justify-center mx-auto ring-6 ring-emerald-50">
+            ✓
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Signed In Successfully</h3>
+            <p id="successEmailText" class="text-xs text-slate-500 mt-1">
+              Entering your Client Console &amp; active contracts...
+            </p>
+          </div>
+          <div class="pt-2 flex justify-center gap-3">
+            <a
+              href="dashboard.html"
+              class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-2"
+            >
+              <span>Open Client Dashboard Now</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom Links -->
+        <div class="pt-4 border-t border-slate-200/80 text-center text-xs text-slate-500 space-y-2">
+          <p>
+            Don&apos;t have a client account yet?
+            <a href="signup.html" class="text-emerald-700 hover:text-emerald-800 font-bold hover:underline">
+              Register as a Client
+            </a>
+          </p>
+          <div class="flex items-center justify-center gap-3 text-[11px] text-slate-400">
+            <a href="seller-profile.html" class="hover:text-slate-600 transition-colors">← Back to Profiles</a>
+            <span>•</span>
+            <a href="outlier-preview.html" class="hover:text-slate-600 transition-colors">Marketplace</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotPasswordModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="relative w-full max-w-md rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl space-y-4">
+      <button
+        type="button"
+        onclick="closeForgotPasswordModal()"
+        class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-sm font-bold p-1 cursor-pointer"
+      >
+        ✕
+      </button>
+      <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-bold">
+        🔑
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-slate-900">Reset Your Client Password</h3>
+        <p class="text-xs text-slate-500 mt-1">
+          Enter your registered work email and we will send you secure password reset instructions.
+        </p>
+      </div>
+      <form onsubmit="handleResetPasswordSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Work Email</label>
+          <input
+            id="resetEmailInput"
+            type="email"
+            required
+            placeholder="sarah@company.com"
+            class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+          />
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button
+            type="button"
+            onclick="closeForgotPasswordModal()"
+            class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            id="resetSubmitBtn"
+            class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+          >
+            Send Reset Link
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Autofill Demo Client Credentials
+    function fillDemoAccount() {
+      document.getElementById('emailInput').value = 'sarah.connor@cyberdyne.io';
+      document.getElementById('passwordInput').value = 'EnterpriseEscrow2026!';
+    }
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+      const pass = document.getElementById('passwordInput');
+      const eye = document.getElementById('eyeIcon');
+      if (pass.type === 'password') {
+        pass.type = 'text';
+        eye.innerText = '👁️';
+      } else {
+        pass.type = 'password';
+        eye.innerText = '👁️‍🗨️';
+      }
+    }
+
+    // Form Submission with Session Establishment
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const rememberMe = document.getElementById('rememberMeCheckbox')?.checked ?? true;
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+
+      submitBtn.disabled = true;
+      btnText.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Authenticating Client Portal...
+      `;
+
+      // Establish verified session
+      const user = {
+        ...FindWorkersAuth.DEMO_USER,
+        email: email || FindWorkersAuth.DEMO_USER.email,
+      };
+      FindWorkersAuth.establishSession(user, rememberMe);
+
+      // Determine redirect URL
+      const params = new URLSearchParams(window.location.search);
+      const callback = params.get('callbackUrl');
+      let target = 'dashboard.html';
+      if (callback && !callback.includes('login') && !callback.includes('signup')) {
+        target = decodeURIComponent(callback);
+      }
+
+      setTimeout(() => {
+        document.getElementById('loginForm').classList.add('hidden');
+        const successCard = document.getElementById('successCard');
+        successCard.classList.remove('hidden');
+        document.getElementById('successEmailText').innerHTML = `Authenticated as <strong class="text-slate-800">${email}</strong>. Entering your Client Dashboard...`;
+        setTimeout(() => {
+          window.location.href = target;
+        }, 800);
+      }, 750);
+    }
+
+    // Social Login Simulation with Session Establishment
+    function triggerSocialLogin(provider) {
+      const btnText = document.getElementById('btnText');
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      btnText.innerHTML = `Connecting to ${provider}...`;
+
+      const user = {
+        ...FindWorkersAuth.DEMO_USER,
+        name: `${provider} Client`,
+        email: `client@${provider.toLowerCase()}.enterprise`,
+      };
+      FindWorkersAuth.establishSession(user, true);
+
+      const params = new URLSearchParams(window.location.search);
+      const callback = params.get('callbackUrl');
+      let target = 'dashboard.html';
+      if (callback && !callback.includes('login') && !callback.includes('signup')) {
+        target = decodeURIComponent(callback);
+      }
+
+      setTimeout(() => {
+        document.getElementById('loginForm').classList.add('hidden');
+        const successCard = document.getElementById('successCard');
+        successCard.classList.remove('hidden');
+        document.getElementById('successEmailText').innerHTML = `Authenticated via ${provider} Single Sign-On. Entering your Client Dashboard...`;
+        setTimeout(() => {
+          window.location.href = target;
+        }, 750);
+      }, 650);
+    }
+
+    // Check if redirected due to auth requirement
+    (function checkAuthRequiredParam() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('reason') === 'auth_required') {
+        const banner = document.getElementById('authRequiredBanner');
+        if (banner) banner.classList.remove('hidden');
+      }
+    })();
+
+    // Forgot Password Modal Handlers
+    function openForgotPasswordModal() {
+      const currentEmail = document.getElementById('emailInput').value;
+      if (currentEmail) {
+        document.getElementById('resetEmailInput').value = currentEmail;
+      }
+      document.getElementById('forgotPasswordModal').classList.remove('hidden');
+    }
+
+    function closeForgotPasswordModal() {
+      document.getElementById('forgotPasswordModal').classList.add('hidden');
+    }
+
+    function handleResetPasswordSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('resetSubmitBtn');
+      btn.innerText = 'Sending link...';
+      btn.disabled = true;
+      setTimeout(() => {
+        alert('Password reset link sent! Please check your email.');
+        closeForgotPasswordModal();
+        btn.innerText = 'Send Reset Link';
+        btn.disabled = false;
+      }, 1200);
+    }
+  </script>
+</body>
+</html>

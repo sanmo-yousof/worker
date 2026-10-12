@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" class="light scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Frontier AI Labs Scale Human Reinforcement Learning with Elite Freelance Talent | Outlier AI Blog</title>
+  <meta name="description" content="Discover how prompt engineers, domain specialists, and developers optimize reasoning pathways and eliminate hallucinations in large language models.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Fragment Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    code, pre {
+      font-family: 'Fragment Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Top Announcement Bar -->
+  <aside aria-label="Announcement" class="bg-slate-50 border-b border-slate-200 py-2 px-4 text-center text-xs text-slate-600">
+    <span class="font-semibold text-slate-900">✨ Now Live:</span> Accelerated weekly onboarding for Software & STEM experts.
+    <a href="outlier-preview.html" class="underline text-indigo-600 hover:text-indigo-800 font-medium ml-1">Explore Marketplace →</a>
+  </aside>
+
+  <!-- Global Header / Navbar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="outlier-preview.html" class="flex items-center gap-2 group">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-xl shadow-xs group-hover:scale-105 transition-transform">
+          ✦
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none">FindWorkers</span>
+          <span class="text-[10px] tracking-widest uppercase font-mono text-emerald-600 font-semibold mt-0.5">by Outlier AI</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+        <a href="outlier-preview.html#top-freelancers" class="hover:text-slate-900 transition-colors">Find Talent</a>
+        <a href="outlier-preview.html#categories" class="hover:text-slate-900 transition-colors">Explore Categories</a>
+        <a href="outlier-preview.html#why-outlier" class="hover:text-slate-900 transition-colors">Why Outlier</a>
+        <a href="outlier-preview.html#blog" class="text-emerald-700 font-bold">Blog</a>
+      </nav>
+
+      <!-- Right Action CTA -->
+      <div class="flex items-center gap-3">
+        <a href="outlier-preview.html" class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold transition-all shadow-sm">
+          Apply as Freelancer
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Article Page -->
+  <main class="min-h-screen pt-4 pb-20">
+    
+    <!-- Top Breadcrumb & Share Actions -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-5 border-b border-slate-100">
+        <!-- Breadcrumb Links -->
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs sm:text-sm text-slate-500">
+          <a href="outlier-preview.html" class="hover:text-slate-900 transition-colors">Home</a>
+          <span class="text-slate-300">/</span>
+          <a href="outlier-preview.html#blog" class="hover:text-slate-900 transition-colors">Blog</a>
+          <span class="text-slate-300">/</span>
+          <span class="text-emerald-700 font-semibold">AI &amp; Engineering</span>
+        </nav>
+
+        <!-- Right Action Buttons (Share & Save) -->
+        <div class="flex items-center gap-2.5">
+          <button type="button" onclick="shareArticle()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+              <polyline points="16 6 12 2 8 6"></polyline>
+              <line x1="12" y1="2" x2="12" y2="15"></line>
+            </svg>
+            <span>Share</span>
+          </button>
+
+          <button type="button" id="saveArticleBtn" onclick="toggleSaveArticle()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors cursor-pointer">
+            <svg id="saveArticleIcon" class="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span id="saveArticleText">Save</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Share Toast Notification -->
+    <div id="shareToast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-xl flex items-center gap-2 transition-all opacity-0 pointer-events-none translate-y-3">
+      <span>Link copied to clipboard!</span>
+    </div>
+
+    <!-- Article Hero Header -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12 text-center sm:text-left">
+      <div class="inline-block px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#EBF7F2] text-[#1B7340] border border-[#D5EFE3] mb-4">
+        AI &amp; Engineering
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
+        How Frontier AI Labs Scale Human Reinforcement Learning with Elite Freelance Talent
+      </h1>
+
+      <!-- Author Byline Bar -->
+      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 pb-8 border-b border-slate-100 text-xs sm:text-sm text-slate-600">
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="Dr. Aris Thorne" class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100 shadow-xs">
+          <div>
+            <span class="block font-bold text-slate-900 leading-none">Dr. Aris Thorne</span>
+            <span class="block text-xs text-slate-400 mt-0.5 font-normal">AI Reasoning &amp; Mathematics Lead</span>
+          </div>
+        </div>
+
+        <span class="hidden sm:inline text-slate-300">•</span>
+        <div class="flex items-center gap-1.5 text-slate-500">
+          <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>October 1, 2026</span>
+        </div>
+
+        <span class="hidden sm:inline text-slate-300">•</span>
+        <div class="flex items-center gap-1.5 text-slate-500">
+          <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>6 min read</span>
+        </div>
+
+        <span class="hidden sm:inline text-slate-300">•</span>
+        <div class="flex items-center gap-1.5 text-slate-500">
+          <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span id="headerCommentCount">3 Comments</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Cover Image -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <div class="relative aspect-[16/9] sm:aspect-[21/9] rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 bg-slate-900">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="Cover Image" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+      </div>
+      <p class="text-center text-xs text-slate-400 mt-2.5 font-normal italic">
+        Frontier AI reasoning benchmarks verified by human evaluators at FindWorkers / Outlier AI.
+      </p>
+    </div>
+
+    <!-- Main Content Layout: Left 8 Cols (Article), Right 4 Cols (Sidebar) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        
+        <!-- Left Column: Article Body (8 Columns) -->
+        <article class="lg:col-span-8">
+          
+          <!-- Lead Paragraph -->
+          <div class="text-base sm:text-lg text-slate-700 font-medium leading-relaxed mb-8 pb-6 border-b border-slate-100">
+            Discover how prompt engineers, domain specialists, and developers optimize reasoning pathways and eliminate hallucinations in large language models.
+          </div>
+
+          <!-- Section 1 -->
+          <section id="section-0" class="space-y-5">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight pt-3">
+              The Critical Bottleneck of Modern Artificial Intelligence
+            </h2>
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              Over the past three years, foundation models have rapidly ascended from simple pattern matching machines into complex cognitive engines capable of composing essays, synthesizing genomic data, and generating complete software suites. However, as model parameter counts expanded past trillions of weights, an unexpected barrier surfaced: raw compute and scraped web text can no longer drive meaningful intelligence leaps.
+            </p>
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              The real frontier of competitive model training is no longer merely "more data"—it is extraordinarily high-fidelity human oversight. Reinforcement Learning from Human Feedback (RLHF), Direct Preference Optimization (DPO), and Reinforcement Learning with Verifiable Rewards (RLVR) depend completely on domain specialists capable of critiquing step-by-step logic.
+            </p>
+
+            <!-- Pull Quote Box -->
+            <div class="my-6 p-6 sm:p-8 rounded-2xl bg-[#FFF8F5] border-l-4 border-[#E05638] text-slate-800 shadow-xs">
+              <svg class="w-8 h-8 text-[#E05638]/40 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+              <blockquote class="text-base sm:text-lg font-bold text-slate-900 italic leading-snug">
+                "A model can ingest the entire public web in days, but it cannot differentiate between mathematically rigorous problem decomposition and confident hallucination without human masters of the craft."
+              </blockquote>
+              <div class="text-xs sm:text-sm font-semibold text-[#E05638] mt-3">
+                — Dr. Aris Thorne, Lead Evaluator
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2 -->
+          <section id="section-1" class="space-y-5 mt-10">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight pt-3">
+              Why Synthetic Data Alone Can Never Replace Human Ground Truth
+            </h2>
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              While AI-generated synthetic data has proven effective for bootstrapping early iterations, models quickly experience mode collapse when trained purely on their own output distributions. Without external entropy and genuine human intellectual rigor, models begin amplifying obscure biases and subtle logical fallacies.
+            </p>
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              Elite freelancers at FindWorkers and Outlier AI serve as the ultimate truth arbitrators. By submitting pairwise critiques, pinpointing edge-case exceptions, and scoring candidate outputs on granular matrices, contributors transform stochastic token predictors into dependable reasoning tools.
+            </p>
+
+            <!-- Checklist -->
+            <div class="my-6 p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+              <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
+                Key Evaluation Criteria
+              </h4>
+              <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+                <li class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✓</span>
+                  <span><strong>Algorithmic Accuracy &amp; Edge-case Handling:</strong> Verifying that code does not exceed asymptotic space/time constraints.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✓</span>
+                  <span><strong>Factuality &amp; Sourcing Verification:</strong> Cross-checking scientific citations and historical consistency.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✓</span>
+                  <span><strong>Safety Calibration &amp; Red Teaming:</strong> Stress-testing vulnerability surface areas against deceptive alignment.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✓</span>
+                  <span><strong>Pedagogical Clarity:</strong> Ensuring the explanation matches human conceptual intuition rather than rote regurgitation.</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Section 3 -->
+          <section id="section-2" class="space-y-5 mt-10">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight pt-3">
+              Inside the Multi-Tier Review Loop
+            </h2>
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              Behind every production checkpoint deployed to millions of end-users is a rigorous multi-tier evaluation pipeline. When a freelancer evaluates an LLM pair, their justification is continuously cross-checked by senior auditors and automated consistency metrics.
+            </p>
+
+            <!-- Syntax Code Snippet -->
+            <div class="my-6 rounded-2xl overflow-hidden border border-slate-800 bg-[#0F172A] text-slate-100 shadow-md">
+              <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800 text-xs font-mono text-slate-400">
+                <span>Listing 1: Representative Evaluation Constraint Metric</span>
+                <button type="button" id="copyCodeBtn" onclick="copySnippetCode()" class="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 text-[11px]">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+              <pre class="p-4 sm:p-5 text-xs sm:text-sm font-mono overflow-x-auto text-emerald-400 leading-relaxed"><code id="pythonCodeSnippet">def compute_evaluation_confidence(audit_score: float, consistency_matrix: list[float]) -> dict:
+    # Calculate confidence tier based on inter-annotator agreement
+    weighted_variance = sum((x - audit_score) ** 2 for x in consistency_matrix) / len(consistency_matrix)
+    tier = "Tier 1: Senior Auditor" if weighted_variance < 0.05 and audit_score >= 0.95 else "Tier 2: Contributor"
+    return {
+        "status": "APPROVED",
+        "assigned_tier": tier,
+        "bonus_multiplier": 1.35 if tier.startswith("Tier 1") else 1.0
+    }</code></pre>
+            </div>
+
+            <!-- Pro-Tip Box -->
+            <div class="my-6 p-6 rounded-2xl bg-[#EBF7F2] border border-[#D5EFE3] text-slate-800">
+              <div class="flex items-center gap-2 text-sm font-bold text-[#1B7340] mb-1.5">
+                <span>💡</span>
+                <span>Expert Contributor Tip</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+                Consistency and clear, structured rationales are the primary criteria for tier upgrades. Providing thorough counter-examples when identifying flawed reasoning will fast-track your profile to Senior Reviewer status.
+              </p>
+            </div>
+          </section>
+
+          <!-- Section 4 -->
+          <section id="section-3" class="space-y-5 mt-10">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight pt-3">
+              The Future of Knowledge Work: Asynchronous &amp; Decentralized
+            </h2>
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              The intersection of generative AI and freelance marketplaces has fundamentally reimagined the knowledge economy. Global experts from over 50 countries no longer need to relocate to Silicon Valley or submit to rigid corporate hierarchies to impact global frontier technologies.
+            </p>
+            <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+              Whether you are a university mathematician in Boston, a software architect in Tokyo, or a linguistics researcher in Amsterdam, your intellectual expertise is directly shaping the next generation of artificial intelligence on your own schedule.
+            </p>
+          </section>
+
+          <!-- Tags & Share Toolbar -->
+          <div class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-bold text-slate-500 mr-1">Tags:</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#F1F5F9] text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer">#RLHF</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#F1F5F9] text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer">#LLMs</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#F1F5F9] text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer">#AI Benchmarking</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#F1F5F9] text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer">#Python</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-slate-500">Share article:</span>
+              <button type="button" onclick="shareArticle()" class="w-8 h-8 rounded-full border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 flex items-center justify-center transition-colors cursor-pointer">🔗</button>
+              <button type="button" onclick="alert('Shared on X!')" class="w-8 h-8 rounded-full border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 flex items-center justify-center transition-colors text-xs font-bold">𝕏</button>
+              <button type="button" onclick="alert('Shared on LinkedIn!')" class="w-8 h-8 rounded-full border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 flex items-center justify-center transition-colors text-xs font-bold text-blue-600">in</button>
+            </div>
+          </div>
+
+          <!-- Author Bio Box -->
+          <div class="mt-10 p-6 sm:p-8 rounded-3xl bg-[#F8FAFC] border border-slate-200 flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="Dr. Aris Thorne" class="w-20 h-20 rounded-full object-cover ring-4 ring-white shadow-sm shrink-0">
+            <div class="text-center sm:text-left">
+              <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                <h3 class="text-lg font-bold text-slate-900">Dr. Aris Thorne</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Author</span>
+              </div>
+              <p class="text-xs font-semibold text-emerald-700 mb-2">AI Reasoning &amp; Mathematics Lead</p>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Ph.D. in Mathematical Physics from MIT. Leads prompt validation, safety calibration, and multi-step reasoning evaluation protocols at Outlier AI.
+              </p>
+            </div>
+          </div>
+
+          <!-- Prev / Next Navigation -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+            <a href="blog-details.html" class="p-5 rounded-2xl border border-slate-200 hover:border-slate-900 transition-all group flex flex-col justify-between">
+              <span class="text-[11px] text-slate-400 font-semibold uppercase tracking-wider mb-1 flex items-center gap-1">
+                <span>←</span> Previous Article
+              </span>
+              <span class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2">
+                10 Proven Strategies to Maximize Your Hourly Earnings as a Remote STEM Evaluator
+              </span>
+            </a>
+
+            <a href="blog-details.html" class="p-5 rounded-2xl border border-slate-200 hover:border-slate-900 transition-all group flex flex-col justify-between text-right">
+              <span class="text-[11px] text-slate-400 font-semibold uppercase tracking-wider mb-1 flex items-center justify-end gap-1">
+                Next Article <span>→</span>
+              </span>
+              <span class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2">
+                The Evolution of UI/UX and Creative Design in the Age of Generative Co-Pilots
+              </span>
+            </a>
+          </div>
+
+          <!-- Comments Section -->
+          <section class="mt-14 pt-10 border-t border-slate-200">
+            <h3 id="commentSectionTitle" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-8">
+              3 Comments
+            </h3>
+
+            <!-- Comments List -->
+            <div id="commentsContainer" class="space-y-6">
+              <!-- Comment 1 -->
+              <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" alt="Elena Rostova" class="w-10 h-10 rounded-full object-cover ring-1 ring-slate-200">
+                    <div>
+                      <span class="block text-sm font-bold text-slate-900">Elena Rostova</span>
+                      <span class="block text-[11px] text-slate-400 font-normal">October 1, 2026 at 2:15 PM</span>
+                    </div>
+                  </div>
+                  <button type="button" onclick="alert('Upvoted comment!')" class="flex items-center gap-1.5 text-xs text-slate-500 hover:text-emerald-600 transition-colors font-medium px-2.5 py-1 rounded-full border border-slate-200 cursor-pointer">
+                    <span>▲</span>
+                    <span>14</span>
+                  </button>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+                  This is the clearest explanation of the bottleneck in synthetic data generation. Human domain experts remain the irreplaceable anchor for nuanced multi-step calculus and clinical reasoning.
+                </p>
+              </div>
+
+              <!-- Comment 2 -->
+              <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80" alt="Marcus Vance" class="w-10 h-10 rounded-full object-cover ring-1 ring-slate-200">
+                    <div>
+                      <span class="block text-sm font-bold text-slate-900">Marcus Vance</span>
+                      <span class="block text-[11px] text-slate-400 font-normal">October 1, 2026 at 4:42 PM</span>
+                    </div>
+                  </div>
+                  <button type="button" onclick="alert('Upvoted comment!')" class="flex items-center gap-1.5 text-xs text-slate-500 hover:text-emerald-600 transition-colors font-medium px-2.5 py-1 rounded-full border border-slate-200 cursor-pointer">
+                    <span>▲</span>
+                    <span>9</span>
+                  </button>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+                  Completely agree with the section on latency vs memory trade-offs. The feedback loops we write in Python audits give immediate reward signals to the model weights.
+                </p>
+              </div>
+
+              <!-- Comment 3 -->
+              <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80" alt="David Okafor" class="w-10 h-10 rounded-full object-cover ring-1 ring-slate-200">
+                    <div>
+                      <span class="block text-sm font-bold text-slate-900">David Okafor</span>
+                      <span class="block text-[11px] text-slate-400 font-normal">October 1, 2026 at 5:30 PM</span>
+                    </div>
+                  </div>
+                  <button type="button" onclick="alert('Upvoted comment!')" class="flex items-center gap-1.5 text-xs text-slate-500 hover:text-emerald-600 transition-colors font-medium px-2.5 py-1 rounded-full border border-slate-200 cursor-pointer">
+                    <span>▲</span>
+                    <span>6</span>
+                  </button>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+                  Great read! Especially appreciated the breakdown of how tier advancement works based on audit consistency scores.
+                </p>
+              </div>
+            </div>
+
+            <!-- Leave a Reply Form -->
+            <div class="mt-12 p-6 sm:p-8 rounded-3xl bg-[#F8FAFC] border border-slate-200">
+              <h4 class="text-lg font-bold text-slate-900 mb-2">Leave a Reply</h4>
+              <p class="text-xs text-slate-500 mb-6 font-normal">
+                Your email address will not be published. Required fields are marked *
+              </p>
+
+              <form onsubmit="postNewComment(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">Your Name *</label>
+                    <input type="text" id="authorNameInput" required placeholder="e.g. John Doe" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">Your Email *</label>
+                    <input type="email" id="authorEmailInput" required placeholder="name@example.com" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1.5">Your Comment *</label>
+                  <textarea rows="4" id="commentTextInput" required placeholder="Write your feedback, questions, or perspectives here..." class="w-full rounded-xl border border-slate-200 p-3.5 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"></textarea>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <button type="submit" class="px-6 py-3 rounded-xl bg-slate-900 text-white font-bold text-xs sm:text-sm hover:bg-slate-800 transition-colors shadow-sm cursor-pointer">
+                    Post Comment
+                  </button>
+                  <span id="commentSuccessToast" class="hidden text-xs text-emerald-600 font-semibold">
+                    ✓ Comment posted successfully!
+                  </span>
+                </div>
+              </form>
+            </div>
+          </section>
+
+        </article>
+
+        <!-- Right Column: Sticky Sidebar (4 Columns) -->
+        <aside class="lg:col-span-4">
+          <div class="sticky top-28 space-y-8">
+            
+            <!-- Sidebar Widget 1: Author Summary Card -->
+            <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs text-center">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="Dr. Aris Thorne" class="w-20 h-20 rounded-full object-cover mx-auto ring-4 ring-slate-100 mb-3 shadow-xs">
+              <h4 class="text-base font-bold text-slate-900">Dr. Aris Thorne</h4>
+              <p class="text-xs text-emerald-700 font-medium mb-3">AI Reasoning &amp; Mathematics Lead</p>
+              <p class="text-xs text-slate-500 leading-relaxed font-normal mb-5">
+                Ph.D. in Mathematical Physics from MIT. Leads prompt validation, safety calibration, and multi-step reasoning evaluation protocols at Outlier AI.
+              </p>
+              <button type="button" onclick="alert('Following Dr. Aris Thorne!')" class="w-full py-2.5 px-4 rounded-xl border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-semibold text-xs transition-all cursor-pointer">
+                + Follow Author
+              </button>
+            </div>
+
+            <!-- Sidebar Widget 2: Table of Contents -->
+            <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs">
+              <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <span>📑</span> Table of Contents
+              </h4>
+              <nav class="space-y-2.5 text-xs text-slate-600">
+                <a href="#section-0" class="block transition-colors py-1 pl-2 border-l-2 border-emerald-500 font-bold text-slate-900 leading-snug">
+                  The Critical Bottleneck of Modern Artificial Intelligence
+                </a>
+                <a href="#section-1" class="block transition-colors py-1 pl-2 border-l-2 border-transparent text-slate-500 hover:text-slate-900 leading-snug">
+                  Why Synthetic Data Alone Can Never Replace Human Ground Truth
+                </a>
+                <a href="#section-2" class="block transition-colors py-1 pl-2 border-l-2 border-transparent text-slate-500 hover:text-slate-900 leading-snug">
+                  Inside the Multi-Tier Review Loop
+                </a>
+                <a href="#section-3" class="block transition-colors py-1 pl-2 border-l-2 border-transparent text-slate-500 hover:text-slate-900 leading-snug">
+                  The Future of Knowledge Work: Asynchronous &amp; Decentralized
+                </a>
+              </nav>
+            </div>
+
+            <!-- Sidebar Widget 3: Popular Articles -->
+            <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs">
+              <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
+                Trending Articles
+              </h4>
+              <div class="space-y-4">
+                <a href="blog-details.html" class="flex items-center gap-3 group">
+                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80" alt="Post" class="w-16 h-16 rounded-xl object-cover ring-1 ring-slate-100 shrink-0">
+                  <div>
+                    <span class="block text-[10px] font-semibold text-emerald-700 uppercase">Freelance Guide</span>
+                    <h5 class="text-xs font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2 leading-snug">
+                      10 Proven Strategies to Maximize Your Hourly Earnings as a Remote STEM Evaluator
+                    </h5>
+                    <span class="block text-[10px] text-slate-400 mt-1">Sept 28, 2026</span>
+                  </div>
+                </a>
+
+                <a href="blog-details.html" class="flex items-center gap-3 group">
+                  <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=400&q=80" alt="Post" class="w-16 h-16 rounded-xl object-cover ring-1 ring-slate-100 shrink-0">
+                  <div>
+                    <span class="block text-[10px] font-semibold text-emerald-700 uppercase">Design &amp; Creative</span>
+                    <h5 class="text-xs font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2 leading-snug">
+                      The Evolution of UI/UX and Creative Design in the Age of Generative Co-Pilots
+                    </h5>
+                    <span class="block text-[10px] text-slate-400 mt-1">Sept 24, 2026</span>
+                  </div>
+                </a>
+
+                <a href="blog-details.html" class="flex items-center gap-3 group">
+                  <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80" alt="Post" class="w-16 h-16 rounded-xl object-cover ring-1 ring-slate-100 shrink-0">
+                  <div>
+                    <span class="block text-[10px] font-semibold text-emerald-700 uppercase">Software &amp; Coding</span>
+                    <h5 class="text-xs font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2 leading-snug">
+                      Mastering Code Auditing Benchmarks: Memory, Latency &amp; Clean Syntax
+                    </h5>
+                    <span class="block text-[10px] text-slate-400 mt-1">Sept 20, 2026</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Sidebar Widget 4: Newsletter Box -->
+            <div class="p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 text-white shadow-xs">
+              <h4 class="text-base font-bold mb-1.5">Free Weekly AI Briefing</h4>
+              <p class="text-xs text-slate-300 font-normal mb-4 leading-relaxed">
+                Get hand-curated guides on machine learning alignment, high-rate gigs, and domain benchmarks.
+              </p>
+              <input type="email" placeholder="name@email.com" class="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder-slate-400 mb-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+              <button type="button" onclick="alert('Subscribed to weekly newsletter!')" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-colors cursor-pointer">
+                Subscribe Now
+              </button>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+    <!-- Related Articles -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pt-16 border-t border-slate-200">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Related Articles</h3>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">More in-depth reading in AI &amp; Engineering and remote AI training.</p>
+        </div>
+        <a href="outlier-preview.html#blog" class="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-700 transition-colors flex items-center gap-1">
+          <span>View All</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Related 1 -->
+        <article class="group flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-900 transition-all hover:shadow-md">
+          <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Article" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-slate-900">Freelance Guide</span>
+          </div>
+          <div class="p-5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="text-[11px] text-slate-400 font-medium mb-2">Sept 28, 2026 • 5 min read</div>
+              <h4 class="text-sm sm:text-base font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2 leading-snug">
+                <a href="blog-details.html">10 Proven Strategies to Maximize Your Hourly Earnings as a Remote STEM Evaluator</a>
+              </h4>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-700">Sarah Jenkins</span>
+              <a href="blog-details.html" class="text-xs font-bold text-emerald-700 group-hover:underline">Read →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Related 2 -->
+        <article class="group flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-900 transition-all hover:shadow-md">
+          <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+            <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=600&q=80" alt="Article" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-slate-900">Design &amp; Creative</span>
+          </div>
+          <div class="p-5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="text-[11px] text-slate-400 font-medium mb-2">Sept 24, 2026 • 4 min read</div>
+              <h4 class="text-sm sm:text-base font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2 leading-snug">
+                <a href="blog-details.html">The Evolution of UI/UX and Creative Design in the Age of Generative Co-Pilots</a>
+              </h4>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-700">Thomas Powell</span>
+              <a href="blog-details.html" class="text-xs font-bold text-emerald-700 group-hover:underline">Read →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Related 3 -->
+        <article class="group flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-900 transition-all hover:shadow-md">
+          <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Article" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-slate-900">Software &amp; Coding</span>
+          </div>
+          <div class="p-5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="text-[11px] text-slate-400 font-medium mb-2">Sept 20, 2026 • 7 min read</div>
+              <h4 class="text-sm sm:text-base font-bold text-slate-900 group-hover:text-emerald-700 line-clamp-2 leading-snug">
+                <a href="blog-details.html">Mastering Code Auditing Benchmarks: Memory, Latency &amp; Clean Syntax</a>
+              </h4>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-700">Michael Zhang</span>
+              <a href="blog-details.html" class="text-xs font-bold text-emerald-700 group-hover:underline">Read →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+        <div class="col-span-2">
+          <div class="flex items-center gap-2 text-white font-extrabold text-xl mb-4">
+            <span class="w-8 h-8 rounded-lg bg-emerald-500 text-slate-950 flex items-center justify-center">✦</span>
+            FindWorkers
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed max-w-sm mb-6">
+            The premier talent engine powering the world's most capable AI systems and global modern tech teams.
+          </p>
+          <div class="text-xs text-slate-500 font-mono">
+            © 2026 Outlier AI Inc. All rights reserved.
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Navigation</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="outlier-preview.html#top-freelancers" class="hover:text-white transition-colors">Top Freelancers</a></li>
+            <li><a href="outlier-preview.html#categories" class="hover:text-white transition-colors">Categories</a></li>
+            <li><a href="outlier-preview.html#blog" class="hover:text-white transition-colors">Blog &amp; News</a></li>
+            <li><a href="seller-profile.html" class="hover:text-white transition-colors">Seller Profile</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Categories</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">Design &amp; Creative</a></li>
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">Software &amp; Coding</a></li>
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">AI &amp; Data Science</a></li>
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">Writing &amp; Translation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Support</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">Help Center</a></li>
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="outlier-preview.html" class="hover:text-white transition-colors">Trust &amp; Safety</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    let isSavedArticle = false;
+    let commentCount = 3;
+
+    function shareArticle() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+      }
+      const toast = document.getElementById('shareToast');
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2500);
+    }
+
+    function toggleSaveArticle() {
+      isSavedArticle = !isSavedArticle;
+      const btn = document.getElementById('saveArticleBtn');
+      const icon = document.getElementById('saveArticleIcon');
+      const text = document.getElementById('saveArticleText');
+
+      if (isSavedArticle) {
+        btn.className = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs font-semibold transition-colors cursor-pointer';
+        icon.setAttribute('fill', 'currentColor');
+        icon.setAttribute('class', 'w-3.5 h-3.5 fill-current text-emerald-600');
+        text.textContent = 'Saved';
+      } else {
+        btn.className = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors cursor-pointer';
+        icon.setAttribute('fill', 'none');
+        icon.setAttribute('class', 'w-3.5 h-3.5 text-slate-500');
+        text.textContent = 'Save';
+      }
+    }
+
+    function copySnippetCode() {
+      const code = document.getElementById('pythonCodeSnippet').innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code);
+      }
+      const btn = document.getElementById('copyCodeBtn');
+      btn.innerHTML = '<span class="text-emerald-400">✓ Copied!</span>';
+      setTimeout(() => {
+        btn.innerHTML = '<span>Copy Code</span>';
+      }, 2000);
+    }
+
+    function postNewComment(e) {
+      e.preventDefault();
+      const name = document.getElementById('authorNameInput').value.trim();
+      const comment = document.getElementById('commentTextInput').value.trim();
+      if (!name || !comment) return;
+
+      const container = document.getElementById('commentsContainer');
+      const card = document.createElement('div');
+      card.className = 'p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs animate-fade-in';
+      card.innerHTML = `
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center ring-1 ring-slate-200">
+              ${escapeHtml(name.charAt(0).toUpperCase())}
+            </div>
+            <div>
+              <span class="block text-sm font-bold text-slate-900">${escapeHtml(name)}</span>
+              <span class="block text-[11px] text-slate-400 font-normal">Just now</span>
+            </div>
+          </div>
+          <button type="button" class="flex items-center gap-1.5 text-xs text-slate-500 font-medium px-2.5 py-1 rounded-full border border-slate-200">
+            <span>▲</span><span>1</span>
+          </button>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">${escapeHtml(comment)}</p>
+      `;
+
+      container.prepend(card);
+      document.getElementById('commentTextInput').value = '';
+      document.getElementById('authorNameInput').value = '';
+      document.getElementById('authorEmailInput').value = '';
+
+      commentCount++;
+      document.getElementById('headerCommentCount').textContent = `${commentCount} Comments`;
+      document.getElementById('commentSectionTitle').textContent = `${commentCount} Comments`;
+
+      const toast = document.getElementById('commentSuccessToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelancers List | FindWorkers - Top Verified Talent &amp; Specialists</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/auth-guard.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'Fragment Mono', monospace; }
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #10B981;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FBFBFC] text-slate-900 flex flex-col font-sans selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Top Announcement Bar -->
+  <aside aria-label="Announcement" class="bg-slate-900 text-slate-300 py-2 px-4 text-center text-xs">
+    <div class="max-w-[1520px] 2xl:max-w-[1600px] mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2 mx-auto sm:mx-0">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 100% ESCROW SECURED
+        </span>
+        <span class="hidden sm:inline">All talent contracts protected with milestone-based payouts and zero platform markup fees.</span>
+      </div>
+      <div id="topBarAuthNav" class="hidden sm:flex items-center gap-4 text-slate-400 font-mono text-[11px]">
+        <a href="dashboard.html" class="hover:text-white transition-colors">Client Console</a>
+        <span>•</span>
+        <a href="login.html" class="hover:text-white transition-colors">Enterprise Sign In</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all">
+    <div class="max-w-[1520px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-20 flex items-center justify-between">
+      <!-- Logo & Categories Dropdown -->
+      <div class="flex items-center gap-6">
+        <a href="outlier-preview.html" class="flex items-center gap-2.5 group">
+          <svg viewBox="0 0 32 32" fill="none" class="w-9 h-9 rounded-xl shadow-xs transition-transform group-hover:scale-105 duration-200">
+            <rect width="32" height="32" rx="8" fill="#0F172A" />
+            <path d="M16 6L18.8 13.2L26 16L18.8 18.8L16 26L13.2 18.8L6 16L13.2 13.2L16 6Z" fill="#FFFFFF" />
+          </svg>
+          <div class="flex flex-col">
+            <span class="font-black text-xl tracking-tight text-slate-900 leading-none">FindWorkers</span>
+            <span class="text-[10px] tracking-widest uppercase font-mono text-emerald-600 font-bold mt-0.5">by Outlier AI</span>
+          </div>
+        </a>
+
+        <!-- Categories Pill Button -->
+        <div class="hidden lg:flex items-center">
+          <button type="button" onclick="document.getElementById('categoryFilterSection').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+            <span class="text-sm">▦</span>
+            <span>Categories</span>
+            <span class="text-[10px] text-slate-400">▾</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav id="mainDesktopNav" class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+        <a href="freelancers.html" class="text-emerald-700 font-bold hover:text-emerald-800 transition-colors">Freelancers</a>
+        <a href="seller-profile.html" class="hover:text-slate-950 transition-colors">Top Profile</a>
+        <a href="dashboard.html" class="hover:text-slate-950 transition-colors">Client Dashboard</a>
+        <a href="outlier-preview.html#why-outlier" class="hover:text-slate-950 transition-colors">Why Outlier</a>
+        <a href="outlier-preview.html#testimonials" class="hover:text-slate-950 transition-colors">Stories</a>
+      </nav>
+
+      <!-- Right CTAs -->
+      <div id="headerAuthNav" class="flex items-center gap-3">
+        <a id="headerLoginBtn" href="login.html" class="text-xs sm:text-sm font-semibold text-slate-700 hover:text-slate-950 px-2.5 py-2 transition-colors">
+          Client Log In
+        </a>
+        <a id="headerSignupBtn" href="signup.html" class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold transition-all shadow-sm">
+          Client Sign Up
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="max-w-[1520px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pt-5 pb-2">
+    <nav class="flex items-center gap-2 text-xs text-slate-400 font-medium">
+      <a href="outlier-preview.html" class="hover:text-slate-700 transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 font-semibold">Freelancers List</span>
+    </nav>
+  </div>
+
+  <!-- Hero Banner Card (Reference Design Peach/Cream Curved Styling) -->
+  <section class="max-w-[1520px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-3">
+    <div class="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-[#FFF4EA] via-[#FDF1E6] to-[#FCEEE2] border border-[#FBE3D0] overflow-hidden shadow-xs">
+      
+      <!-- Decorative Organic Curve Background -->
+      <div aria-hidden="true" class="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-amber-200/30 blur-3xl pointer-events-none"></div>
+      <div aria-hidden="true" class="absolute -bottom-16 -right-16 w-80 h-80 rounded-full bg-orange-300/20 blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Banner Left Content & Search Box -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100/70 border border-amber-200 text-[11px] font-mono font-bold text-amber-900">
+            <span>✨ VERIFIED FREELANCE TALENT DIRECTORY</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            Freelancers List
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-600 max-w-lg leading-relaxed">
+            Connect with pre-screened technical experts, AI alignment specialists, and full-stack developers. Secure contracts with guaranteed 100% milestone escrow.
+          </p>
+
+          <!-- Search Input Box inside Banner (Matches Reference) -->
+          <div class="pt-3 max-w-2xl">
+            <div class="bg-white p-2 sm:p-2.5 rounded-2xl shadow-md border border-slate-200/80 flex items-center gap-2">
+              <div class="pl-3 text-slate-400 text-base">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
+              <input
+                id="heroSearchInput"
+                type="text"
+                oninput="handleSearchInput(event)"
+                placeholder="Search by specialist name, title, or keywords..."
+                class="flex-1 bg-transparent px-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none"
+              />
+              <button
+                type="button"
+                onclick="applyAllFilters()"
+                class="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm transition-all shadow-xs hover:shadow flex items-center gap-1.5 cursor-pointer shrink-0"
+              >
+                <span>Search</span>
+                <span class="hidden sm:inline">↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner Right Graphic/Illustration (Vector workspace style from reference) -->
+        <div class="lg:col-span-5 hidden lg:flex items-center justify-end relative">
+          <svg class="w-full max-w-md h-auto drop-shadow-sm" viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Desk Base -->
+            <rect x="20" y="240" width="420" height="12" rx="6" fill="#0F172A" opacity="0.85" />
+            <!-- Laptop Stand & Body -->
+            <rect x="60" y="140" width="160" height="95" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="3" />
+            <rect x="70" y="150" width="140" height="75" rx="6" fill="#0F172A" />
+            <!-- Code Lines on Laptop -->
+            <rect x="80" y="162" width="60" height="5" rx="2.5" fill="#34D399" />
+            <rect x="80" y="172" width="100" height="5" rx="2.5" fill="#94A3B8" />
+            <rect x="80" y="182" width="80" height="5" rx="2.5" fill="#60A5FA" />
+            <rect x="80" y="192" width="115" height="5" rx="2.5" fill="#F472B6" />
+            <rect x="80" y="202" width="45" height="5" rx="2.5" fill="#A78BFA" />
+            <polygon points="50,235 230,235 220,240 60,240" fill="#CBD5E1" />
+            
+            <!-- Monitor / Secondary Screen -->
+            <rect x="210" y="90" width="140" height="100" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="3" />
+            <rect x="218" y="98" width="124" height="84" rx="5" fill="#F8FAFC" />
+            <!-- Chart graphics -->
+            <path d="M228 160 L248 140 L268 152 L295 125 L325 142" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="295" cy="125" r="4" fill="#10B981" />
+            <rect x="270" y="190" width="20" height="35" rx="3" fill="#64748B" />
+            <rect x="250" y="225" width="60" height="6" rx="3" fill="#94A3B8" />
+
+            <!-- Freelancer Character Illustration -->
+            <g transform="translate(320, 70)">
+              <!-- Hanging Modern Lamp above -->
+              <line x1="40" y1="-70" x2="40" y2="10" stroke="#0F172A" stroke-width="2" />
+              <polygon points="20,25 60,25 50,10 30,10" fill="#F87171" />
+              
+              <!-- Character Head & Body -->
+              <ellipse cx="40" cy="80" rx="26" ry="32" fill="#FBBF24" opacity="0.25" />
+              <rect x="22" y="55" width="36" height="42" rx="18" fill="#FCD34D" />
+              <!-- Hair -->
+              <path d="M18 68 C 18 42, 62 42, 62 68 C 55 58, 45 54, 38 54 C 28 54, 20 60, 18 68 Z" fill="#1E293B" />
+              <!-- Glasses -->
+              <rect x="26" y="66" width="12" height="10" rx="3" fill="none" stroke="#0F172A" stroke-width="2.5" />
+              <rect x="42" y="66" width="12" height="10" rx="3" fill="none" stroke="#0F172A" stroke-width="2.5" />
+              <line x1="38" y1="71" x2="42" y2="71" stroke="#0F172A" stroke-width="2" />
+              <!-- Torso / Hoodie -->
+              <path d="M10 115 C 10 95, 70 95, 70 115 L 75 165 L 5 165 Z" fill="#065F46" />
+              <path d="M25 105 L 40 125 L 55 105" fill="#34D399" />
+              <rect x="35" y="115" width="10" height="35" fill="#FDE68A" />
+            </g>
+
+            <!-- Coffee Mug -->
+            <rect x="390" y="215" width="22" height="25" rx="4" fill="#0F172A" />
+            <path d="M412 222 C 418 222, 418 232, 412 232" stroke="#0F172A" stroke-width="3" fill="none" />
+            <path d="M396 208 Q 398 202 396 198" stroke="#CBD5E1" stroke-width="2" fill="none" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout Grid: Left Sidebar (Filters) + Right Content (Results) -->
+  <main class="max-w-[1520px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-8 flex-1 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- ================= LEFT FILTER SIDEBAR (4 Cols on LG) ================= -->
+      <aside class="lg:col-span-4 xl:col-span-3 space-y-6">
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 shadow-xs space-y-6">
+          
+          <!-- Sidebar Header & Clear All -->
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+              <span class="text-base font-black text-slate-900">Filters</span>
+              <span id="activeFiltersBadge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-100 text-emerald-800 font-bold">
+                0 Active
+              </span>
+            </div>
+            <button
+              type="button"
+              onclick="resetAllFilters()"
+              class="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline cursor-pointer"
+            >
+              Reset All
+            </button>
+          </div>
+
+          <!-- 1. CATEGORY FILTER -->
+          <div id="categoryFilterSection" class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider font-mono text-slate-800 flex items-center justify-between">
+              <span>Category</span>
+              <span class="text-slate-400 font-normal text-[11px]">(Selected: <span id="catSelectedCount">0</span>)</span>
+            </h3>
+            <div class="space-y-2 text-xs text-slate-600" id="categoryCheckboxes">
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="Design & Creative" onchange="applyAllFilters()" class="filter-cat w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span>Design &amp; Creative</span>
+                </div>
+                <span class="text-[11px] font-mono text-slate-400">12</span>
+              </label>
+
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="Development & IT" onchange="applyAllFilters()" class="filter-cat w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span>Development &amp; IT</span>
+                </div>
+                <span class="text-[11px] font-mono text-slate-400">18</span>
+              </label>
+
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="AI & RLHF Alignment" onchange="applyAllFilters()" class="filter-cat w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span>AI &amp; RLHF Alignment</span>
+                </div>
+                <span class="text-[11px] font-mono text-slate-400">24</span>
+              </label>
+
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="STEM & Mathematics" onchange="applyAllFilters()" class="filter-cat w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span>STEM &amp; Mathematics</span>
+                </div>
+                <span class="text-[11px] font-mono text-slate-400">9</span>
+              </label>
+
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="Writing & Translation" onchange="applyAllFilters()" class="filter-cat w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span>Writing &amp; Translation</span>
+                </div>
+                <span class="text-[11px] font-mono text-slate-400">7</span>
+              </label>
+
+              <!-- Extra Categories toggled with show more -->
+              <div id="extraCategories" class="hidden space-y-2 pt-1">
+                <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                  <div class="flex items-center gap-2.5">
+                    <input type="checkbox" value="Digital Marketing" onchange="applyAllFilters()" class="filter-cat w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                    <span>Digital Marketing</span>
+                  </div>
+                  <span class="text-[11px] font-mono text-slate-400">5</span>
+                </label>
+                <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                  <div class="flex items-center gap-2.5">
+                    <input type="checkbox" value="Business & Finance" onchange="applyAllFilters()" class="filter-cat w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                    <span>Business &amp; Finance</span>
+                  </div>
+                  <span class="text-[11px] font-mono text-slate-400">4</span>
+                </label>
+              </div>
+
+              <button
+                type="button"
+                id="toggleCatBtn"
+                onclick="toggleMoreCategories()"
+                class="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline pt-1 block cursor-pointer"
+              >
+                + Show More
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. SELLER LABEL FILTER (User requested: Label 1, Label 2, Pro Batch) -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <h3 class="text-xs font-bold uppercase tracking-wider font-mono text-slate-800">
+              Seller Label &amp; Badge
+            </h3>
+            <div class="space-y-2 text-xs text-slate-600">
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="Pro Seller" onchange="applyAllFilters()" class="filter-label w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span class="flex items-center gap-1 font-semibold text-slate-900">
+                    <span class="text-amber-500">★</span> Pro Batch / Pro Seller
+                  </span>
+                </div>
+                <span class="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded bg-slate-900 text-amber-300">PRO</span>
+              </label>
+
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="Level 2 Seller" onchange="applyAllFilters()" class="filter-label w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span class="font-medium text-slate-800">Level 2 Seller</span>
+                </div>
+                <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-100 text-slate-700">L2</span>
+              </label>
+
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="Level 1 Seller" onchange="applyAllFilters()" class="filter-label w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span class="font-medium text-slate-800">Level 1 Seller</span>
+                </div>
+                <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-100 text-slate-700">L1</span>
+              </label>
+
+              <label class="flex items-center justify-between cursor-pointer hover:text-slate-950">
+                <div class="flex items-center gap-2.5">
+                  <input type="checkbox" value="Top Rated" onchange="applyAllFilters()" class="filter-label w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span class="font-medium text-slate-800">Top Rated Verified</span>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-600 font-bold">TOP</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 3. PRICING FILTER -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider font-mono text-slate-800">
+                Pricing Range
+              </h3>
+              <span id="priceDisplay" class="text-xs font-mono font-bold text-emerald-700">$0 - $250/hr</span>
+            </div>
+
+            <div class="space-y-2">
+              <input
+                id="priceRange"
+                type="range"
+                min="20"
+                max="250"
+                value="250"
+                step="5"
+                oninput="handlePriceRangeChange(event)"
+                class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+              />
+              <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <span>$20/hr</span>
+                <span>$100/hr</span>
+                <span>$250+/hr</span>
+              </div>
+            </div>
+
+            <!-- Price Type Radio -->
+            <div class="grid grid-cols-2 gap-2 pt-1 text-xs">
+              <label class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                <input type="radio" name="priceType" value="all" checked onchange="applyAllFilters()" class="text-emerald-600 focus:ring-emerald-500">
+                <span class="font-medium text-slate-700">All Rates</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                <input type="radio" name="priceType" value="fixed" onchange="applyAllFilters()" class="text-emerald-600 focus:ring-emerald-500">
+                <span class="font-medium text-slate-700">Milestone / Fixed</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 4. SKILLS FILTER -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <h3 class="text-xs font-bold uppercase tracking-wider font-mono text-slate-800">
+              Skills
+            </h3>
+            <div class="space-y-2 text-xs text-slate-600">
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="Figma" onchange="applyAllFilters()" class="filter-skill w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>Figma &amp; UI/UX Systems</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="Python" onchange="applyAllFilters()" class="filter-skill w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>Python &amp; PyTorch</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="Next.js" onchange="applyAllFilters()" class="filter-skill w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>Next.js &amp; TypeScript</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="RLHF" onchange="applyAllFilters()" class="filter-skill w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>LLM Alignment &amp; RLHF</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="Mathematics" onchange="applyAllFilters()" class="filter-skill w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>STEM &amp; Proof Validation</span>
+              </label>
+
+              <!-- Extra Skills -->
+              <div id="extraSkills" class="hidden space-y-2 pt-1">
+                <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                  <input type="checkbox" value="FastAPI" onchange="applyAllFilters()" class="filter-skill w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span>FastAPI &amp; Cloud Microservices</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                  <input type="checkbox" value="Prompt Engineering" onchange="applyAllFilters()" class="filter-skill w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                  <span>Prompt Engineering &amp; Red-Teaming</span>
+                </label>
+              </div>
+
+              <button
+                type="button"
+                id="toggleSkillsBtn"
+                onclick="toggleMoreSkills()"
+                class="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline pt-1 block cursor-pointer"
+              >
+                + Show More
+              </button>
+            </div>
+          </div>
+
+          <!-- 5. LANGUAGES FILTER -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <h3 class="text-xs font-bold uppercase tracking-wider font-mono text-slate-800">
+              Languages
+            </h3>
+            <div class="space-y-2 text-xs text-slate-600">
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="English" onchange="applyAllFilters()" class="filter-lang w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300" checked>
+                <span>English (Native / Fluent)</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="German" onchange="applyAllFilters()" class="filter-lang w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>German</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="French" onchange="applyAllFilters()" class="filter-lang w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>French</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer hover:text-slate-950">
+                <input type="checkbox" value="Spanish" onchange="applyAllFilters()" class="filter-lang w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                <span>Spanish</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 6. ENGLISH LEVEL DROPDOWN -->
+          <div class="space-y-2 pt-4 border-t border-slate-100">
+            <label class="block text-xs font-bold uppercase tracking-wider font-mono text-slate-800">
+              English Level
+            </label>
+            <select
+              id="englishLevelSelect"
+              onchange="applyAllFilters()"
+              class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 cursor-pointer"
+            >
+              <option value="any">Any Level</option>
+              <option value="native">Native / Bilingual</option>
+              <option value="fluent">Fluent Professional</option>
+              <option value="conversational">Conversational</option>
+            </select>
+          </div>
+
+          <!-- Apply Filter CTA Button -->
+          <div class="pt-2">
+            <button
+              type="button"
+              onclick="applyAllFilters()"
+              class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Search &amp; Apply Filters</span>
+              <span>↗</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ================= RIGHT TALENT LISTINGS AREA (8-9 Cols on LG) ================= -->
+      <section class="lg:col-span-8 xl:col-span-9 space-y-5">
+        
+        <!-- Controls Top Bar: Result count + Sort dropdown -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 sm:px-6 rounded-2xl border border-slate-200/90 shadow-2xs">
+          <div class="text-xs sm:text-sm text-slate-600">
+            Showing <strong id="resultsCountText" class="text-slate-900">8 results</strong>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <label for="sortSelect" class="text-xs font-mono text-slate-500 hidden sm:inline">Sort by:</label>
+            <select
+              id="sortSelect"
+              onchange="handleSortChange(event)"
+              class="rounded-xl border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-800 bg-slate-50/50 hover:bg-slate-100 focus:outline-none cursor-pointer"
+            >
+              <option value="default">Sort by (Default)</option>
+              <option value="rating">Highest Rated</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="contracts">Most Completed Projects</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Freelancers Cards Container -->
+        <div id="freelancersContainer" class="space-y-4">
+          <!-- Dynamically populated / server-rendered initially -->
+        </div>
+
+        <!-- Empty State (Hidden initially) -->
+        <div id="noResultsState" class="hidden p-12 rounded-3xl bg-white border border-slate-200 text-center space-y-4 shadow-sm">
+          <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-500 text-2xl flex items-center justify-center mx-auto">
+            🔍
+          </div>
+          <h3 class="text-lg font-bold text-slate-900">No Freelancers Match Your Filter Criteria</h3>
+          <p class="text-xs text-slate-500 max-w-md mx-auto">
+            Try resetting your price range, clearing specific skill tags, or searching for broader terms like "Design", "Python", or "RLHF".
+          </p>
+          <button
+            type="button"
+            onclick="resetAllFilters()"
+            class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 transition-colors cursor-pointer"
+          >
+            Reset All Filters
+          </button>
+        </div>
+
+        <!-- Pagination Bar (Matches Reference) -->
+        <div id="paginationBar" class="flex items-center justify-center gap-2 pt-6">
+          <button type="button" class="w-9 h-9 rounded-xl border border-slate-200 text-slate-400 hover:text-slate-800 hover:bg-slate-100 text-xs font-bold transition-colors">
+            ←
+          </button>
+          <button type="button" class="w-9 h-9 rounded-xl bg-slate-900 text-white text-xs font-bold shadow-xs">
+            1
+          </button>
+          <button type="button" class="w-9 h-9 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold transition-colors">
+            2
+          </button>
+          <button type="button" class="w-9 h-9 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold transition-colors">
+            3
+          </button>
+          <span class="px-2 text-slate-400">...</span>
+          <button type="button" class="px-3.5 h-9 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold transition-colors">
+            Next →
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Dark Footer (Matches Reference Image Layout) -->
+  <footer class="bg-[#111622] text-slate-400 text-xs mt-16 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-[1520px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 space-y-12">
+      <!-- Top Links Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <!-- Col 1: About -->
+        <div>
+          <h4 class="text-white font-mono text-xs uppercase tracking-wider font-bold mb-4">About</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="outlier-preview.html#why-outlier" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="signup.html" class="hover:text-white transition-colors">Become a Seller</a></li>
+            <li><a href="freelancers.html" class="hover:text-white transition-colors">Jobs on FindWorkers</a></li>
+            <li><a href="seller-profile.html" class="hover:text-white transition-colors">Pricing &amp; Escrow</a></li>
+            <li><a href="seller-profile.html" class="hover:text-white transition-colors">Services</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2: Categories -->
+        <div>
+          <h4 class="text-white font-mono text-xs uppercase tracking-wider font-bold mb-4">Categories</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="#" onclick="filterByDirectCat('Design & Creative'); return false;" class="hover:text-white transition-colors">Design &amp; Creative</a></li>
+            <li><a href="#" onclick="filterByDirectCat('Development & IT'); return false;" class="hover:text-white transition-colors">Development &amp; IT</a></li>
+            <li><a href="#" onclick="filterByDirectCat('AI & RLHF Alignment'); return false;" class="hover:text-white transition-colors">AI &amp; Machine Learning</a></li>
+            <li><a href="#" onclick="filterByDirectCat('STEM & Mathematics'); return false;" class="hover:text-white transition-colors">STEM &amp; Proofs</a></li>
+            <li><a href="#" onclick="filterByDirectCat('Writing & Translation'); return false;" class="hover:text-white transition-colors">Writing &amp; Translation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Support -->
+        <div>
+          <h4 class="text-white font-mono text-xs uppercase tracking-wider font-bold mb-4">Support</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="dashboard.html" class="hover:text-white transition-colors">Help &amp; Support</a></li>
+            <li><a href="outlier-preview.html#faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="dashboard.html" class="hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="dashboard.html" class="hover:text-white transition-colors">Escrow Dispute Center</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 & 5: Subscribe & Apps -->
+        <div class="col-span-2 space-y-4">
+          <h4 class="text-white font-mono text-xs uppercase tracking-wider font-bold">Subscribe to Top Talent Digest</h4>
+          <p class="text-slate-400 text-xs max-w-sm">Receive curated weekly portfolios of newly verified Level 1, Level 2, and Pro Batch specialists.</p>
+          
+          <form onsubmit="event.preventDefault(); alert('Subscribed to talent updates!');" class="flex items-center max-w-sm">
+            <input
+              type="email"
+              required
+              placeholder="Your business email..."
+              class="w-full rounded-l-xl border border-slate-700 bg-slate-800/80 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+            />
+            <button type="submit" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs rounded-r-xl transition-colors">
+              Send
+            </button>
+          </form>
+
+          <div class="pt-2 text-slate-400 text-xs space-y-1">
+            <div class="font-bold text-slate-300">FindWorkers Enterprise Apps</div>
+            <div class="flex items-center gap-4 text-[11px] font-mono">
+              <span class="hover:text-white cursor-pointer"> iOS App</span>
+              <span>•</span>
+              <span class="hover:text-white cursor-pointer">🤖 Android App</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Copyright & Terms Bar -->
+      <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-mono">
+        <div class="flex items-center gap-4">
+          <a href="#terms" onclick="alert('Terms of Service: Milestone escrow and platform guidelines.'); return false;" class="hover:text-slate-300">Terms of Service</a>
+          <span>•</span>
+          <a href="#privacy" onclick="alert('Privacy Policy: Enterprise SOC-2 standards.'); return false;" class="hover:text-slate-300">Privacy Policy</a>
+          <span>•</span>
+          <a href="#" class="hover:text-slate-300">Site Map</a>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>Follow Us:</span>
+          <span class="hover:text-white cursor-pointer">Facebook</span>
+          <span class="hover:text-white cursor-pointer">Twitter (X)</span>
+          <span class="hover:text-white cursor-pointer">LinkedIn</span>
+        </div>
+        <div>
+          © 2026 FindWorkers by Outlier AI. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT: DATASET & DYNAMIC FILTERING ================= -->
+  <script>
+    // Freelancers Dataset
+    const FREELANCERS = [
+      {
+        id: 'FL-001',
+        name: 'Thomas Powell',
+        avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80',
+        headline: 'Senior UI/UX Specialist & RLHF Design Lead',
+        category: 'Design & Creative',
+        sellerLevel: 'Level 2 Seller',
+        isPro: true,
+        hourlyRate: 85,
+        fixedPriceMin: 1500,
+        fixedPriceMax: 4500,
+        rating: 5.0,
+        reviewsCount: 14,
+        completedContracts: 14,
+        location: 'Miami, FL',
+        languages: ['English', 'Spanish'],
+        englishLevel: 'native',
+        skills: ['Figma', 'UI/UX Design', 'RLHF', 'Design Systems', 'React'],
+        bio: 'Specialized in design systems, token architecture, and high-fidelity interaction prototypes. 100% verified track record with milestone escrow contracts and top evaluation benchmarks.',
+        fiverrLinked: true,
+        upworkLinked: true,
+        saved: false
+      },
+      {
+        id: 'FL-002',
+        name: 'Elena Rostova',
+        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
+        headline: 'Lead AI & RLHF Alignment Specialist',
+        category: 'AI & RLHF Alignment',
+        sellerLevel: 'Level 2 Seller',
+        isPro: false,
+        hourlyRate: 110,
+        fixedPriceMin: 2000,
+        fixedPriceMax: 6000,
+        rating: 4.9,
+        reviewsCount: 22,
+        completedContracts: 22,
+        location: 'Berlin, Germany',
+        languages: ['English', 'German'],
+        englishLevel: 'fluent',
+        skills: ['Python', 'RLHF', 'Prompt Engineering', 'Safety Benchmarks'],
+        bio: 'Conducts prompt curation, adversarial red-teaming, and model evaluation scorecards for leading generative AI laboratories. Direct experience across frontier reasoning models.',
+        fiverrLinked: true,
+        upworkLinked: false,
+        saved: true
+      },
+      {
+        id: 'FL-003',
+        name: 'Marcus Vance',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+        headline: 'Full-Stack Next.js & Python API Engineer',
+        category: 'Development & IT',
+        sellerLevel: 'Level 1 Seller',
+        isPro: true,
+        hourlyRate: 95,
+        fixedPriceMin: 1800,
+        fixedPriceMax: 5000,
+        rating: 4.9,
+        reviewsCount: 31,
+        completedContracts: 31,
+        location: 'San Francisco, CA',
+        languages: ['English'],
+        englishLevel: 'native',
+        skills: ['Next.js', 'Python', 'TypeScript', 'FastAPI', 'PostgreSQL'],
+        bio: 'Builds enterprise-grade web applications, asynchronous task queues, and escrow payment systems with Next.js 14 App Router and high-throughput Python backends.',
+        fiverrLinked: true,
+        upworkLinked: true,
+        saved: false
+      },
+      {
+        id: 'FL-004',
+        name: 'David Chen',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+        headline: 'STEM & Mathematical Reasoning Specialist',
+        category: 'STEM & Mathematics',
+        sellerLevel: 'Level 1 Seller',
+        isPro: false,
+        hourlyRate: 75,
+        fixedPriceMin: 1200,
+        fixedPriceMax: 3500,
+        rating: 4.8,
+        reviewsCount: 19,
+        completedContracts: 19,
+        location: 'Boston, MA',
+        languages: ['English'],
+        englishLevel: 'native',
+        skills: ['Mathematics', 'Python', 'STEM', 'Proofs'],
+        bio: 'Ph.D. in Applied Mathematics. Specializes in symbolic computation verification, multi-step math evaluation benchmarks, and formal proof generation for frontier LLMs.',
+        fiverrLinked: false,
+        upworkLinked: true,
+        saved: false
+      },
+      {
+        id: 'FL-005',
+        name: 'Sophia Loren',
+        avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80',
+        headline: 'Technical Editorial & Developer Documentation Lead',
+        category: 'Writing & Translation',
+        sellerLevel: 'Level 2 Seller',
+        isPro: true,
+        hourlyRate: 70,
+        fixedPriceMin: 900,
+        fixedPriceMax: 2800,
+        rating: 5.0,
+        reviewsCount: 28,
+        completedContracts: 28,
+        location: 'London, United Kingdom',
+        languages: ['English', 'French'],
+        englishLevel: 'native',
+        skills: ['Writing', 'Documentation', 'Markdown', 'API Guides'],
+        bio: 'Crafts crystal-clear developer documentation, API walkthroughs, and editorial guidelines for frontier AI and software platforms. Exceptional turnaround times.',
+        fiverrLinked: true,
+        upworkLinked: true,
+        saved: false
+      },
+      {
+        id: 'FL-006',
+        name: 'Alexander Wright',
+        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80',
+        headline: 'Computer Vision & Deep Learning Researcher',
+        category: 'Development & IT',
+        sellerLevel: 'Level 2 Seller',
+        isPro: true,
+        hourlyRate: 145,
+        fixedPriceMin: 3000,
+        fixedPriceMax: 8000,
+        rating: 5.0,
+        reviewsCount: 16,
+        completedContracts: 16,
+        location: 'Seattle, WA',
+        languages: ['English'],
+        englishLevel: 'native',
+        skills: ['Python', 'PyTorch', 'Computer Vision', 'CUDA'],
+        bio: 'Ex-FAANG research engineer specializing in multi-modal vision-language models, synthetic data generation, and custom inference optimization.',
+        fiverrLinked: true,
+        upworkLinked: true,
+        saved: false
+      },
+      {
+        id: 'FL-007',
+        name: 'Aisha Patel',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+        headline: 'Prompt Engineer & Safety Red-Teamer',
+        category: 'AI & RLHF Alignment',
+        sellerLevel: 'Level 1 Seller',
+        isPro: false,
+        hourlyRate: 65,
+        fixedPriceMin: 800,
+        fixedPriceMax: 2400,
+        rating: 4.8,
+        reviewsCount: 11,
+        completedContracts: 11,
+        location: 'Toronto, Canada',
+        languages: ['English', 'French'],
+        englishLevel: 'fluent',
+        skills: ['RLHF', 'Prompt Engineering', 'Safety Benchmarks'],
+        bio: 'Expert in system prompt design, jailbreak resistance testing, and chain-of-thought fine-tuning across complex reasoning domains.',
+        fiverrLinked: false,
+        upworkLinked: true,
+        saved: false
+      },
+      {
+        id: 'FL-008',
+        name: 'Lucas Meyer',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80',
+        headline: 'Senior Cloud DevOps & Kubernetes Infrastructure Architect',
+        category: 'Development & IT',
+        sellerLevel: 'Level 2 Seller',
+        isPro: true,
+        hourlyRate: 125,
+        fixedPriceMin: 2500,
+        fixedPriceMax: 7500,
+        rating: 4.9,
+        reviewsCount: 37,
+        completedContracts: 37,
+        location: 'Austin, TX',
+        languages: ['English', 'German'],
+        englishLevel: 'fluent',
+        skills: ['DevOps', 'Kubernetes', 'Docker', 'AWS', 'Python'],
+        bio: 'Architects scalable GPU clusters, automated CI/CD pipelines, and high-security VPC topologies for distributed machine learning training workloads.',
+        fiverrLinked: true,
+        upworkLinked: true,
+        saved: false
+      }
+    ];
+
+    let currentSearchTerm = '';
+    let maxHourlyRate = 250;
+    let selectedSort = 'default';
+
+    // Toggle Extra Category Checkboxes
+    function toggleMoreCategories() {
+      const extra = document.getElementById('extraCategories');
+      const btn = document.getElementById('toggleCatBtn');
+      if (extra.classList.contains('hidden')) {
+        extra.classList.remove('hidden');
+        btn.innerText = '- Show Less';
+      } else {
+        extra.classList.add('hidden');
+        btn.innerText = '+ Show More';
+      }
+    }
+
+    // Toggle Extra Skills
+    function toggleMoreSkills() {
+      const extra = document.getElementById('extraSkills');
+      const btn = document.getElementById('toggleSkillsBtn');
+      if (extra.classList.contains('hidden')) {
+        extra.classList.remove('hidden');
+        btn.innerText = '- Show Less';
+      } else {
+        extra.classList.add('hidden');
+        btn.innerText = '+ Show More';
+      }
+    }
+
+    // Quick filter click from footer
+    function filterByDirectCat(catName) {
+      document.querySelectorAll('.filter-cat').forEach(cb => {
+        cb.checked = (cb.value === catName);
+      });
+      window.scrollTo({ top: 400, behavior: 'smooth' });
+      applyAllFilters();
+    }
+
+    // Handle Search Input in Banner
+    function handleSearchInput(e) {
+      currentSearchTerm = e.target.value.toLowerCase().trim();
+      applyAllFilters();
+    }
+
+    // Handle Price Range Slider
+    function handlePriceRangeChange(e) {
+      maxHourlyRate = parseInt(e.target.value);
+      document.getElementById('priceDisplay').innerText = `$0 - $${maxHourlyRate}/hr`;
+      applyAllFilters();
+    }
+
+    // Handle Sort Dropdown
+    function handleSortChange(e) {
+      selectedSort = e.target.value;
+      applyAllFilters();
+    }
+
+    // Toggle Heart Saved
+    function toggleSaveFreelancer(flId) {
+      const fl = FREELANCERS.find(f => f.id === flId);
+      if (fl) {
+        fl.saved = !fl.saved;
+        renderCards(getFilteredFreelancers());
+      }
+    }
+
+    // Filter Logic
+    function getFilteredFreelancers() {
+      // Checked categories
+      const checkedCats = Array.from(document.querySelectorAll('.filter-cat:checked')).map(cb => cb.value);
+      document.getElementById('catSelectedCount').innerText = checkedCats.length;
+
+      // Checked Labels
+      const checkedLabels = Array.from(document.querySelectorAll('.filter-label:checked')).map(cb => cb.value);
+
+      // Checked Skills
+      const checkedSkills = Array.from(document.querySelectorAll('.filter-skill:checked')).map(cb => cb.value.toLowerCase());
+
+      // Checked Languages
+      const checkedLangs = Array.from(document.querySelectorAll('.filter-lang:checked')).map(cb => cb.value);
+
+      // English Level
+      const englishLevel = document.getElementById('englishLevelSelect').value;
+
+      // Price Type
+      const priceType = document.querySelector('input[name="priceType"]:checked').value;
+
+      return FREELANCERS.filter(fl => {
+        // Keyword Search
+        if (currentSearchTerm) {
+          const matchName = fl.name.toLowerCase().includes(currentSearchTerm);
+          const matchHead = fl.headline.toLowerCase().includes(currentSearchTerm);
+          const matchBio = fl.bio.toLowerCase().includes(currentSearchTerm);
+          const matchSkill = fl.skills.some(s => s.toLowerCase().includes(currentSearchTerm));
+          if (!matchName && !matchHead && !matchBio && !matchSkill) return false;
+        }
+
+        // Category Filter
+        if (checkedCats.length > 0 && !checkedCats.includes(fl.category)) {
+          return false;
+        }
+
+        // Label Filter
+        if (checkedLabels.length > 0) {
+          const matchesLabel = checkedLabels.some(l => {
+            if (l === 'Pro Seller' && fl.isPro) return true;
+            if (l === 'Level 2 Seller' && fl.sellerLevel === 'Level 2 Seller') return true;
+            if (l === 'Level 1 Seller' && fl.sellerLevel === 'Level 1 Seller') return true;
+            if (l === 'Top Rated' && fl.rating >= 4.9) return true;
+            return false;
+          });
+          if (!matchesLabel) return false;
+        }
+
+        // Price Filter
+        if (fl.hourlyRate > maxHourlyRate) {
+          return false;
+        }
+
+        // Skills Filter
+        if (checkedSkills.length > 0) {
+          const hasSkill = fl.skills.some(s => checkedSkills.includes(s.toLowerCase()));
+          if (!hasSkill) return false;
+        }
+
+        // Language Filter
+        if (checkedLangs.length > 0) {
+          const hasLang = fl.languages.some(l => checkedLangs.includes(l));
+          if (!hasLang) return false;
+        }
+
+        // English Level
+        if (englishLevel !== 'any' && fl.englishLevel !== englishLevel) {
+          return false;
+        }
+
+        return true;
+      });
+    }
+
+    // Sort Logic
+    function sortFreelancers(list) {
+      const sorted = [...list];
+      if (selectedSort === 'rating') {
+        sorted.sort((a, b) => b.rating - a.rating);
+      } else if (selectedSort === 'price-asc') {
+        sorted.sort((a, b) => a.hourlyRate - b.hourlyRate);
+      } else if (selectedSort === 'price-desc') {
+        sorted.sort((a, b) => b.hourlyRate - a.hourlyRate);
+      } else if (selectedSort === 'contracts') {
+        sorted.sort((a, b) => b.completedContracts - a.completedContracts);
+      }
+      return sorted;
+    }
+
+    // Render Cards Function
+    function renderCards(list) {
+      const container = document.getElementById('freelancersContainer');
+      const countText = document.getElementById('resultsCountText');
+      const emptyState = document.getElementById('noResultsState');
+      const pagination = document.getElementById('paginationBar');
+
+      const sorted = sortFreelancers(list);
+      countText.innerText = `${sorted.length} result${sorted.length === 1 ? '' : 's'}`;
+
+      if (sorted.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        pagination.classList.add('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      pagination.classList.remove('hidden');
+
+      container.innerHTML = sorted.map(fl => `
+        <div class="rounded-2xl border border-slate-200/90 p-5 sm:p-6 bg-white hover:border-slate-300 hover:shadow-md transition-all duration-200 relative group">
+          
+          <!-- Bookmark Heart Icon in Top Right -->
+          <button
+            type="button"
+            onclick="toggleSaveFreelancer('${fl.id}')"
+            class="absolute top-5 right-5 w-8 h-8 rounded-full border border-slate-200 hover:border-slate-300 bg-white flex items-center justify-center text-sm transition-colors cursor-pointer z-10"
+            title="${fl.saved ? 'Remove Bookmark' : 'Save Freelancer'}"
+          >
+            <span class="${fl.saved ? 'text-rose-500 font-bold' : 'text-slate-400 group-hover:text-slate-600'}">
+              ${fl.saved ? '♥' : '♡'}
+            </span>
+          </button>
+
+          <div class="flex flex-col md:flex-row items-start justify-between gap-5">
+            
+            <!-- Left Info & Details Column -->
+            <div class="flex items-start gap-4 flex-1">
+              <!-- Avatar with online indicator -->
+              <div class="relative shrink-0 mt-0.5">
+                <img
+                  src="${fl.avatar}"
+                  alt="${fl.name}"
+                  class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover ring-2 ring-slate-100 shadow-2xs"
+                />
+                <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white" title="Active & Ready to Hire"></span>
+              </div>
+
+              <!-- Main Bio & Details -->
+              <div class="space-y-2 flex-1">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 pr-10">
+                    <a href="seller-profile.html" class="text-base sm:text-lg font-extrabold text-slate-900 hover:text-emerald-700 transition-colors">
+                      ${fl.name}
+                    </a>
+                    
+                    <!-- Pro Batch Badge -->
+                    ${fl.isPro ? `
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-amber-300 shadow-2xs">
+                        <span class="text-amber-400">★</span> Pro Seller
+                      </span>
+                    ` : ''}
+
+                    <!-- Level Badge -->
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                      ${fl.sellerLevel}
+                    </span>
+
+                    <!-- Fiverr / Upwork Badges -->
+                    ${fl.upworkLinked ? `
+                      <span class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        Upwork Verified
+                      </span>
+                    ` : ''}
+                  </div>
+
+                  <p class="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                    ${fl.headline}
+                  </p>
+                </div>
+
+                <!-- Meta Row: Location, Rating, Completed Orders -->
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+                  <span class="flex items-center gap-1 text-slate-700">
+                    <span class="text-slate-400">📍</span> ${fl.location}
+                  </span>
+                  <span>•</span>
+                  <span class="flex items-center gap-1 text-amber-500 font-bold">
+                    <span>★</span>
+                    <span class="text-slate-900">${fl.rating.toFixed(1)}</span>
+                    <span class="text-slate-400 font-normal">(${fl.reviewsCount} reviews)</span>
+                  </span>
+                  <span>•</span>
+                  <span class="font-mono text-emerald-800 font-semibold">
+                    ✓ ${fl.completedContracts} Milestone Escrows
+                  </span>
+                </div>
+
+                <!-- Bio description -->
+                <p class="text-xs text-slate-500 leading-relaxed max-w-2xl line-clamp-2">
+                  ${fl.bio}
+                </p>
+
+                <!-- Skill Tags List (Pills from Reference) -->
+                <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                  ${fl.skills.slice(0, 4).map(skill => `
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-semibold text-[11px] transition-colors cursor-pointer">
+                      ${skill}
+                    </span>
+                  `).join('')}
+                  ${fl.skills.length > 4 ? `
+                    <span class="px-2 py-1 rounded-lg bg-slate-50 text-slate-400 text-[11px] font-mono">
+                      +${fl.skills.length - 4}
+                    </span>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Pricing & Booking Action Column (Matches Reference Card Layout) -->
+            <div class="flex md:flex-col items-center md:items-end justify-between w-full md:w-48 pt-4 md:pt-0 border-t md:border-t-0 border-slate-100 shrink-0 gap-3">
+              <div class="text-left md:text-right">
+                <div class="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                  $${fl.hourlyRate} <span class="text-xs font-normal text-slate-500">/ hr</span>
+                </div>
+                <div class="text-[11px] font-mono text-emerald-700 font-semibold">
+                  $${fl.fixedPriceMin.toLocaleString()} - $${fl.fixedPriceMax.toLocaleString()} Fixed
+                </div>
+                <div class="text-[10px] text-slate-400 uppercase font-mono">
+                  Milestone Escrow (0% VAT)
+                </div>
+              </div>
+
+              <!-- Mint/Light Green Action Button from Reference -->
+              <a
+                href="seller-profile.html"
+                class="px-5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 font-bold text-xs transition-all shadow-2xs hover:shadow flex items-center gap-1.5 shrink-0 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600"
+              >
+                <span>Book Now</span>
+                <span class="text-sm">↗</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Apply All Filters
+    function applyAllFilters() {
+      const filtered = getFilteredFreelancers();
+      renderCards(filtered);
+
+      // Active filters badge update
+      let activeCount = 0;
+      if (currentSearchTerm) activeCount++;
+      if (document.querySelectorAll('.filter-cat:checked').length > 0) activeCount++;
+      if (document.querySelectorAll('.filter-label:checked').length > 0) activeCount++;
+      if (document.querySelectorAll('.filter-skill:checked').length > 0) activeCount++;
+      if (maxHourlyRate < 250) activeCount++;
+      if (document.getElementById('englishLevelSelect').value !== 'any') activeCount++;
+
+      const badge = document.getElementById('activeFiltersBadge');
+      if (activeCount > 0) {
+        badge.innerText = `${activeCount} Active`;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    // Reset All Filters
+    function resetAllFilters() {
+      document.getElementById('heroSearchInput').value = '';
+      currentSearchTerm = '';
+
+      document.querySelectorAll('.filter-cat').forEach(cb => cb.checked = false);
+      document.querySelectorAll('.filter-label').forEach(cb => cb.checked = false);
+      document.querySelectorAll('.filter-skill').forEach(cb => cb.checked = false);
+      document.querySelectorAll('.filter-lang').forEach(cb => cb.checked = (cb.value === 'English'));
+
+      document.getElementById('priceRange').value = 250;
+      maxHourlyRate = 250;
+      document.getElementById('priceDisplay').innerText = '$0 - $250/hr';
+
+      document.querySelector('input[name="priceType"][value="all"]').checked = true;
+      document.getElementById('englishLevelSelect').value = 'any';
+      document.getElementById('sortSelect').value = 'default';
+      selectedSort = 'default';
+
+      applyAllFilters();
+    }
+
+    // Initialize on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      applyAllFilters();
+    });
+  </script>
+</body>
+</html>

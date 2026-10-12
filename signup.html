@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Sign Up | Outlier AI - Enterprise Talent Registration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/auth-guard.js"></script>
+  <script>
+    // Redirect if already authenticated
+    FindWorkersAuth.redirectIfAlreadyLoggedIn();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'Fragment Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Top Header Bar -->
+  <header class="bg-white border-b border-slate-200/80 px-4 sm:px-8 py-3.5 flex items-center justify-between z-10 shrink-0">
+    <a href="outlier-preview.html" class="flex items-center gap-2.5 group">
+      <svg viewBox="0 0 32 32" fill="none" class="w-8 h-8 rounded-lg shadow-xs transition-transform group-hover:scale-105 duration-200">
+        <rect width="32" height="32" rx="8" fill="#0F172A" />
+        <path d="M16 6L18.8 13.2L26 16L18.8 18.8L16 26L13.2 18.8L6 16L13.2 13.2L16 6Z" fill="#FFFFFF" />
+      </svg>
+      <div class="flex flex-col">
+        <div class="flex items-center gap-1.5">
+          <span class="text-lg font-bold tracking-tight text-slate-900">Outlier</span>
+          <span class="text-[9px] uppercase font-mono px-1.5 py-0.2 rounded bg-slate-100 text-slate-700 font-bold border border-slate-200">
+            AI
+          </span>
+        </div>
+        <span class="text-[9px] text-slate-400 font-mono -mt-0.5">by Scale AI</span>
+      </div>
+    </a>
+
+    <div class="flex items-center gap-3 text-xs">
+      <span class="hidden sm:inline text-slate-500">Already have a client account?</span>
+      <a href="login.html" class="px-4 py-2 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-800 font-bold transition-all shadow-2xs">
+        Client Log In
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Split-Screen Container -->
+  <main class="flex-1 flex flex-col lg:flex-row">
+    <!-- Left Side: Brand Perks & Live Client Social Proof -->
+    <section class="hidden lg:flex lg:w-5/12 xl:w-5/12 bg-[#0B0F19] text-white p-12 xl:p-16 flex-col justify-between relative overflow-hidden">
+      <!-- Ambient Orbs -->
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Hero Header -->
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/80 text-[11px] font-mono text-emerald-400 font-semibold mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>ENTERPRISE TALENT ACQUISITION</span>
+        </div>
+
+        <h1 class="text-3xl xl:text-4xl font-black text-white tracking-tight leading-tight">
+          Hire vetted technical talent with guaranteed escrow security.
+        </h1>
+        <p class="text-sm text-slate-400 mt-4 leading-relaxed">
+          Accelerate your engineering and AI development by hiring pre-screened specialists across software, STEM, and LLM evaluation.
+        </p>
+
+        <!-- Perks Checklist -->
+        <div class="space-y-3.5 mt-8">
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-200">Pre-Screened Top 1% Talent</div>
+              <div class="text-[11px] text-slate-400 mt-0.5 leading-snug">Rigorously vetted technical assessments, work samples, and code reviews.</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-200">100% Milestone Escrow</div>
+              <div class="text-[11px] text-slate-400 mt-0.5 leading-snug">Deposits locked securely before work begins; funds release only upon your approval.</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-200">Zero Markup or Surprise Fees</div>
+              <div class="text-[11px] text-slate-400 mt-0.5 leading-snug">Straightforward contract pricing, milestone structures, and negotiable budgets.</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-200">Rapid 24-Hour Matching</div>
+              <div class="text-[11px] text-slate-400 mt-0.5 leading-snug">Book verified talent immediately or review curated candidates without waiting weeks.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Contracts Ticker -->
+      <div class="relative z-10 mt-8 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 space-y-2">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
+          <span>Active Client Escrows Funded</span>
+          <span class="text-emerald-400 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live
+          </span>
+        </div>
+        <div class="space-y-1.5 text-[11px] font-mono">
+          <div class="flex justify-between items-center text-slate-300">
+            <span>✦ Cyberdyne Systems (RLHF Milestone #1)</span>
+            <span class="font-bold text-emerald-400">$3,500.00</span>
+          </div>
+          <div class="flex justify-between items-center text-slate-300">
+            <span>✦ Anthropic Research Lab (STEM Eval)</span>
+            <span class="font-bold text-emerald-400">$5,200.00</span>
+          </div>
+          <div class="flex justify-between items-center text-slate-300">
+            <span>✦ NeuroScale AI (Full-Stack Next.js)</span>
+            <span class="font-bold text-emerald-400">$2,800.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Info -->
+      <div class="relative z-10 pt-6 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+        <span>🔒 SOC-2 COMPLIANT • 256-BIT SSL</span>
+        <a href="seller-profile.html" class="hover:text-slate-300 transition-colors">← Back</a>
+      </div>
+    </section>
+
+    <!-- Right Side: Interactive Client Signup Form -->
+    <section class="flex-1 flex items-center justify-center p-6 sm:p-10 lg:p-14">
+      <div class="w-full max-w-xl space-y-6">
+        <!-- Header -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 mb-3">
+            <span>🏢</span>
+            <span>Client &amp; Enterprise Account</span>
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Create Your Client Account
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            Start hiring verified specialists and manage deliverables with zero dispute risk.
+          </p>
+        </div>
+
+        <!-- Quick Demo Autofill Banner -->
+        <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200/80 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">⚡</span>
+            <span class="text-emerald-950 font-medium text-[11px]">Preview client signup fast?</span>
+          </div>
+          <button
+            type="button"
+            onclick="fillDemoClientSignup()"
+            class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] transition-colors cursor-pointer"
+          >
+            Auto-fill Client Sample Data
+          </button>
+        </div>
+
+        <!-- Social Signup Grid -->
+        <div class="grid grid-cols-2 gap-2.5">
+          <button
+            type="button"
+            onclick="triggerSocialSignup('Google')"
+            class="py-2.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-xs font-semibold text-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+          >
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+            </svg>
+            <span>Sign up with Google</span>
+          </button>
+
+          <button
+            type="button"
+            onclick="triggerSocialSignup('GitHub')"
+            class="py-2.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-xs font-semibold text-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+          >
+            <svg class="w-4 h-4 shrink-0 fill-slate-900" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            <span>Sign up with GitHub</span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="relative my-3">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-slate-200"></div>
+          </div>
+          <div class="relative flex justify-center text-xs uppercase">
+            <span class="bg-slate-50 px-3 text-slate-400 font-mono text-[10px] font-semibold">
+              Or register with company email
+            </span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="signupForm" onsubmit="handleSignupSubmit(event)" class="space-y-4">
+          <!-- Name Fields (2 Columns) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">First Name</label>
+              <input
+                id="firstNameInput"
+                type="text"
+                required
+                placeholder="e.g. Eleanor"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Last Name</label>
+              <input
+                id="lastNameInput"
+                type="text"
+                required
+                placeholder="e.g. Rigby"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+              />
+            </div>
+          </div>
+
+          <!-- Company Name & Work Email (2 Columns) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Company / Organization</label>
+              <input
+                id="companyInput"
+                type="text"
+                required
+                placeholder="e.g. NeuroScale Labs"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Work Email</label>
+              <input
+                id="emailInput"
+                type="email"
+                required
+                placeholder="eleanor@company.com"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+              />
+            </div>
+          </div>
+
+          <!-- Talent Domain & Country (2 Columns) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Primary Talent Needed</label>
+              <select
+                id="domainInput"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white cursor-pointer"
+              >
+                <option value="Software & Coding">Software &amp; Coding (Full-Stack, Python, Rust)</option>
+                <option value="AI & RLHF Alignment" selected>AI &amp; RLHF Alignment (Prompting, Eval)</option>
+                <option value="UI/UX & Product Design">UI/UX &amp; Product Design (Figma, Web Apps)</option>
+                <option value="Mathematics & Statistics">Mathematics &amp; Statistics (ML, Proofs)</option>
+                <option value="STEM & Natural Sciences">STEM &amp; Natural Sciences (Physics, Bio)</option>
+                <option value="Translation & Technical Writing">Translation &amp; Technical Writing</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Country / Region</label>
+              <select
+                id="countryInput"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white cursor-pointer"
+              >
+                <option value="United States" selected>United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Canada">Canada</option>
+                <option value="Germany">Germany</option>
+                <option value="Australia">Australia</option>
+                <option value="Singapore">Singapore</option>
+                <option value="France">France</option>
+                <option value="Other">Other Global (85+ Supported)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Password with Strength Indicator -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-xs font-semibold text-slate-700">Password</label>
+              <span class="text-[11px] font-mono text-slate-400">
+                Strength: <strong id="strengthLabel" class="text-slate-400">Enter password</strong>
+              </span>
+            </div>
+
+            <div class="relative">
+              <input
+                id="passwordInput"
+                type="password"
+                required
+                oninput="updatePasswordStrength()"
+                placeholder="At least 8 characters with numbers & symbols"
+                class="w-full rounded-xl border border-slate-200 pl-3.5 pr-10 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+              />
+              <button
+                type="button"
+                onclick="togglePasswordVisibility()"
+                class="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-slate-700 p-0.5 cursor-pointer"
+              >
+                <span id="eyeIcon">👁️‍🗨️</span>
+              </button>
+            </div>
+
+            <!-- Strength Bars -->
+            <div class="grid grid-cols-4 gap-1.5 mt-1.5">
+              <div id="bar1" class="h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>
+              <div id="bar2" class="h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>
+              <div id="bar3" class="h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>
+              <div id="bar4" class="h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-[10px] text-slate-500 font-mono">
+              <span id="chkLength">○ 8+ characters</span>
+              <span id="chkNumber">○ Number</span>
+              <span id="chkSymbol">○ Symbol</span>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Confirm Password</label>
+            <input
+              id="confirmPasswordInput"
+              type="password"
+              required
+              placeholder="Repeat your password"
+              class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+            />
+          </div>
+
+          <!-- Terms Agreement -->
+          <div class="space-y-2 pt-1">
+            <label class="flex items-start gap-2.5 cursor-pointer">
+              <input
+                id="termsCheckbox"
+                type="checkbox"
+                required
+                checked
+                class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 mt-0.5 shrink-0"
+              />
+              <span class="text-xs text-slate-600 leading-snug">
+                I agree to the
+                <a href="#terms" onclick="alert('Client Terms: Milestone escrow terms, intellectual property assignment, and enterprise SLA.'); return false;" class="text-emerald-700 hover:underline font-semibold">
+                  Terms of Service
+                </a>,
+                <a href="#escrow" onclick="alert('Escrow Agreement: All contract deposits are held in 100% secure escrow prior to deliverable release.'); return false;" class="text-emerald-700 hover:underline font-semibold">
+                  Escrow Agreement
+                </a>, and
+                <a href="#privacy" onclick="alert('Privacy Policy: Enterprise-grade data protection with SOC-2 Type II standards.'); return false;" class="text-emerald-700 hover:underline font-semibold">
+                  Privacy Policy
+                </a>.
+              </span>
+            </label>
+
+            <label class="flex items-start gap-2.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked
+                class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 mt-0.5 shrink-0"
+              />
+              <span class="text-xs text-slate-500 leading-snug">
+                Notify me with candidate matches and milestone deliverable reviews (recommended).
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            id="signupSubmitBtn"
+            type="submit"
+            class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+          >
+            <span id="signupBtnText">Complete Client Registration &amp; Start Hiring →</span>
+          </button>
+        </form>
+
+        <!-- Success Message State (Hidden Initially) -->
+        <div id="signupSuccessCard" class="hidden p-8 rounded-2xl bg-white border border-emerald-300 text-center space-y-4 shadow-sm">
+          <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 text-3xl font-bold flex items-center justify-center mx-auto ring-8 ring-emerald-50">
+            🎉
+          </div>
+          <div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+              Client Account Created
+            </span>
+            <h3 id="successNameHeader" class="text-xl font-bold text-slate-900 mt-2">
+              Welcome to FindWorkers!
+            </h3>
+            <p id="successSummaryText" class="text-xs sm:text-sm text-slate-500 mt-1 max-w-md mx-auto">
+              Your enterprise hiring account is active and ready to hire pre-vetted specialists.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left text-xs space-y-1.5 max-w-md mx-auto">
+            <div class="font-bold text-slate-800 flex items-center gap-1.5">
+              <span>📋</span>
+              <span>Next steps for hiring:</span>
+            </div>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              1. Check your work email for your account activation link.<br />
+              2. Browse verified specialists or book talent directly via milestones.<br />
+              3. Deposit funds safely into escrow — released only upon deliverable approval.
+            </p>
+          </div>
+
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href="dashboard.html"
+              class="w-full sm:w-auto px-7 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center justify-center gap-1.5"
+            >
+              <span>Open Client Dashboard →</span>
+            </a>
+            <a
+              href="seller-profile.html"
+              class="w-full sm:w-auto px-5 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors"
+            >
+              Browse Verified Talent
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom Links -->
+        <div class="pt-4 border-t border-slate-200/80 text-center text-xs text-slate-500 space-y-2">
+          <p>
+            Already have a client account?
+            <a href="login.html" class="text-emerald-700 hover:text-emerald-800 font-bold hover:underline">
+              Log in to your Client Console
+            </a>
+          </p>
+          <div class="flex items-center justify-center gap-3 text-[11px] text-slate-400">
+            <a href="seller-profile.html" class="hover:text-slate-600 transition-colors">← Back to Profiles</a>
+            <span>•</span>
+            <a href="outlier-preview.html" class="hover:text-slate-600 transition-colors">Marketplace</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Autofill Sample Client Data
+    function fillDemoClientSignup() {
+      document.getElementById('firstNameInput').value = 'Eleanor';
+      document.getElementById('lastNameInput').value = 'Rigby';
+      document.getElementById('companyInput').value = 'NeuroScale Labs';
+      document.getElementById('emailInput').value = 'eleanor@neuroscale.ai';
+      document.getElementById('domainInput').value = 'AI & RLHF Alignment';
+      document.getElementById('countryInput').value = 'United States';
+      document.getElementById('passwordInput').value = 'EnterpriseVault#2026';
+      document.getElementById('confirmPasswordInput').value = 'EnterpriseVault#2026';
+      updatePasswordStrength();
+    }
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+      const pass = document.getElementById('passwordInput');
+      const eye = document.getElementById('eyeIcon');
+      if (pass.type === 'password') {
+        pass.type = 'text';
+        eye.innerText = '👁️';
+      } else {
+        pass.type = 'password';
+        eye.innerText = '👁️‍🗨️';
+      }
+    }
+
+    // Live Password Strength Calculation
+    function updatePasswordStrength() {
+      const pass = document.getElementById('passwordInput').value;
+      const label = document.getElementById('strengthLabel');
+      const b1 = document.getElementById('bar1');
+      const b2 = document.getElementById('bar2');
+      const b3 = document.getElementById('bar3');
+      const b4 = document.getElementById('bar4');
+
+      const chkLen = document.getElementById('chkLength');
+      const chkNum = document.getElementById('chkNumber');
+      const chkSym = document.getElementById('chkSymbol');
+
+      let score = 0;
+      if (pass.length >= 8) {
+        score++;
+        chkLen.innerHTML = '<span class="text-emerald-700 font-bold">✓ 8+ characters</span>';
+      } else {
+        chkLen.innerHTML = '○ 8+ characters';
+      }
+
+      if (/[0-9]/.test(pass)) {
+        score++;
+        chkNum.innerHTML = '<span class="text-emerald-700 font-bold">✓ Number</span>';
+      } else {
+        chkNum.innerHTML = '○ Number';
+      }
+
+      if (/[A-Z]/.test(pass)) score++;
+
+      if (/[^A-Za-z0-9]/.test(pass)) {
+        score++;
+        chkSym.innerHTML = '<span class="text-emerald-700 font-bold">✓ Symbol</span>';
+      } else {
+        chkSym.innerHTML = '○ Symbol';
+      }
+
+      // Reset bars
+      [b1, b2, b3, b4].forEach(b => b.className = 'h-1.5 rounded-full bg-slate-200 transition-all duration-300');
+
+      if (score === 0) {
+        label.innerText = 'Enter password';
+        label.className = 'text-slate-400';
+      } else if (score <= 1) {
+        label.innerText = 'Weak';
+        label.className = 'text-rose-600 font-bold';
+        b1.className = 'h-1.5 rounded-full bg-rose-500';
+      } else if (score <= 3) {
+        label.innerText = 'Medium';
+        label.className = 'text-amber-600 font-bold';
+        b1.className = 'h-1.5 rounded-full bg-amber-500';
+        b2.className = 'h-1.5 rounded-full bg-amber-500';
+        b3.className = 'h-1.5 rounded-full bg-amber-500';
+      } else {
+        label.innerText = 'Strong';
+        label.className = 'text-emerald-600 font-bold';
+        b1.className = 'h-1.5 rounded-full bg-emerald-500';
+        b2.className = 'h-1.5 rounded-full bg-emerald-500';
+        b3.className = 'h-1.5 rounded-full bg-emerald-500';
+        b4.className = 'h-1.5 rounded-full bg-emerald-500';
+      }
+    }
+
+    // Form Submission
+    function handleSignupSubmit(e) {
+      e.preventDefault();
+      const p1 = document.getElementById('passwordInput').value;
+      const p2 = document.getElementById('confirmPasswordInput').value;
+      if (p1 !== p2) {
+        alert('Passwords do not match! Please check and try again.');
+        return;
+      }
+
+      const firstName = document.getElementById('firstNameInput').value || 'Client';
+      const company = document.getElementById('companyInput').value || 'Your Company';
+      const email = document.getElementById('emailInput').value;
+      const domain = document.getElementById('domainInput').value;
+
+      const submitBtn = document.getElementById('signupSubmitBtn');
+      const btnText = document.getElementById('signupBtnText');
+
+      submitBtn.disabled = true;
+      btnText.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Creating Client Account &amp; Setting Up Escrow...
+      `;
+
+      // Establish verified session for new client
+      const user = {
+        id: 'usr_' + Math.random().toString(36).substring(2, 9),
+        name: firstName,
+        email: email,
+        company: company,
+        role: 'client',
+        domain: domain,
+        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+        escrowBalance: 0,
+      };
+      FindWorkersAuth.establishSession(user, true);
+
+      setTimeout(() => {
+        document.getElementById('signupForm').classList.add('hidden');
+        const successCard = document.getElementById('signupSuccessCard');
+        successCard.classList.remove('hidden');
+        document.getElementById('successNameHeader').innerText = `Welcome to FindWorkers, ${firstName}!`;
+        document.getElementById('successSummaryText').innerHTML = `Your hiring account for <strong class="text-slate-800">${company}</strong> (<span class="font-mono text-slate-700">${email}</span>) is ready to hire in <span class="font-semibold text-emerald-700">${domain}</span>.`;
+      }, 950);
+    }
+
+    // Social Signup Simulation
+    function triggerSocialSignup(provider) {
+      const submitBtn = document.getElementById('signupSubmitBtn');
+      const btnText = document.getElementById('signupBtnText');
+      submitBtn.disabled = true;
+      btnText.innerHTML = `Connecting to ${provider}...`;
+
+      const user = {
+        id: 'usr_' + Math.random().toString(36).substring(2, 9),
+        name: `${provider} Client User`,
+        email: `client@${provider.toLowerCase()}-cloud.io`,
+        company: `${provider} Client Corp`,
+        role: 'client',
+        domain: 'Software & Coding',
+        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+        escrowBalance: 0,
+      };
+      FindWorkersAuth.establishSession(user, true);
+
+      setTimeout(() => {
+        document.getElementById('signupForm').classList.add('hidden');
+        const successCard = document.getElementById('signupSuccessCard');
+        successCard.classList.remove('hidden');
+        document.getElementById('successNameHeader').innerText = `Welcome to FindWorkers!`;
+        document.getElementById('successSummaryText').innerHTML = `Authenticated via ${provider} Single Sign-On. Your Client Account has been created!`;
+      }, 750);
+    }
+  </script>
+</body>
+</html>
